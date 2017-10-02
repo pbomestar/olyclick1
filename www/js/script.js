@@ -1,35 +1,85 @@
 var game = new Phaser.Game(480, 640, Phaser.CANVAS, null, {preload: preload, create: create, update: update});
 
-var startButton, exitButton, prevButton, nextButton;
+var playButton, exitButton, levels, prevButton, nextButton, textChoose, textLevel, startButton, backButton, level, maxLevel;
 
+maxLevel = 5;
+level = maxLevel;
 
 function preload() {
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.scale.pageAlignHorizontally = true;
     game.scale.pageAlignVertically = true;
     game.stage.backgroundColor = '#eee';
-    game.load.spritesheet('startBtn', 'img/start12.png', 100, 35);
+    game.load.spritesheet('playBtn', 'img/play12.png', 150, 50);
     game.load.spritesheet('exitBtn', 'img/exit12.png', 150, 50);
-    game.load.spritesheet('prevnextBtn', 'img/prevnext.png', 70, 50);
+    game.load.spritesheet('levels', 'img/levels.png', 200, 200);
+    game.load.spritesheet('prevBtn', 'img/prev.png', 70, 50);
+    game.load.spritesheet('nextBtn', 'img/next.png', 70, 50);
+    game.load.spritesheet('startBtn', 'img/start12.png', 150, 50);
+    game.load.spritesheet('backBtn', 'img/back12.png', 150, 50);
 }
 function create() {
-    startButton = game.add.button(game.world.width*0.5, game.world.height*0.3, 'startBtn', startGame, this, 0, 0, 1, 2);
-    startButton.anchor.set(0.5);
+    playButton = game.add.button(game.world.width*0.5, game.world.height*0.3, 'playBtn', playGame, this, 0, 0, 1, 2);
+    playButton.anchor.set(0.5);
     exitButton = game.add.button(game.world.width*0.5, game.world.height*0.5, 'exitBtn', exitGame, this, 0, 0, 1, 2);
     exitButton.anchor.set(0.5);
-	prevButton = game.add.button(game.world.width*0.3, game.world.height*0.7, 'prevnextBtn', prevGame, this, 0, 0, 1, 2);
-    prevButton.anchor.set(0.5);
-	nextButton = game.add.button(game.world.width*0.7, game.world.height*0.7, 'prevnextBtn', nextGame, this, 0, 0, 2, 1);
-    nextButton.anchor.set(0.5);
+
 }
 function update() {}
 
-function startGame(){
-	startButton.kill();
-	exitButton.kill();
-	prevButton.kill();
-	nextButton.kill();
+function playGame(){
+    playButton.kill();
+    exitButton.kill();
+
+    levelImg = game.add.sprite(game.world.width*0.5, game.world.height*0.4, 'levels');
+    levelImg.anchor.set(0.5);
+    levelImg.frame = maxLevel-1;
+	
+    prevButton = game.add.button(game.world.width*0.3, game.world.height*0.65, 'prevBtn', prevGame, this, 0, 0, 1, 2);
+    prevButton.anchor.set(0.5);
+	nextButton = game.add.button(game.world.width*0.7, game.world.height*0.65, 'nextBtn', nextGame, this, 0, 0, 1, 2);
+    nextButton.anchor.set(0.5);
+    textChoose = game.add.text(game.world.width*0.5, game.world.height*0.2, "Choose a game level:", {
+        font: "25px Arial",
+        fill: "#ff0044",
+        align: "center"
+    });
+    textChoose.anchor.setTo(0.5);
+
+    textLevel = game.add.text(game.world.width*0.5, game.world.height*0.65, level, {
+        font: "25px Arial",
+        fill: "#ff0044",
+        align: "center"
+    });
+    textLevel.anchor.setTo(0.5);
+
+    startButton = game.add.button(game.world.width*0.5, game.world.height*0.8, 'startBtn', startGame, this, 0, 0, 1, 2);
+    startButton.anchor.set(0.5);
+    backButton = game.add.button(game.world.width*0.5, game.world.height*0.90, 'backBtn', backGame, this, 0, 0, 1, 2);
+    backButton.anchor.set(0.5);
+}
+function prevGame(){
+    level--;
+    if (level < 1) level = 1;
+    levelImg.frame = level-1;
+    textLevel.setText(level);
+}
+function nextGame(){
+    level++;
+    if (level > maxLevel) level = maxLevel; 
+    levelImg.frame = level-1;
+    textLevel.setText(level);
+}
+function startGame(){}
+function backGame(){
+    levelImg.kill();
+    prevButton.kill();
+    nextButton.kill();
+    textChoose.kill();
+    textLevel.kill();
+    startButton.kill();
+    backButton.kill();
+    playButton.revive();
+    exitButton.revive();
 }
 function exitGame(){}
-function prevGame(){}
-function nextGame(){}
