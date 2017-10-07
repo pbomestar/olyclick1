@@ -2,6 +2,7 @@ var game = new Phaser.Game(480, 640, Phaser.CANVAS, null, {preload: preload, cre
 
 var playButton, exitButton, levels, prevButton, nextButton, textChoose, textLevel, startButton, backButton, level, maxLevel;
 
+piece = [];
 maxLevel = 5;
 level = maxLevel;
 
@@ -17,6 +18,7 @@ function preload() {
     game.load.spritesheet('nextBtn', 'img/next.png', 70, 50);
     game.load.spritesheet('startBtn', 'img/start12.png', 150, 50);
     game.load.spritesheet('backBtn', 'img/back12.png', 150, 50);
+    game.load.spritesheet('piece', 'img/piece.png', 50, 50);
 }
 function create() {
     playButton = game.add.button(game.world.width*0.5, game.world.height*0.3, 'playBtn', playGame, this, 0, 0, 1, 2);
@@ -70,7 +72,29 @@ function nextGame(){
     levelImg.frame = level-1;
     textLevel.setText(level);
 }
-function startGame(){}
+function startGame(){
+    levelImg.kill();
+    prevButton.kill();
+    nextButton.kill();
+    textChoose.kill();
+    textLevel.kill();
+    startButton.kill();
+    backButton.kill();
+    
+    printPieces();
+}
+function printPieces(){
+    for (var i = 0; i < 2; i++){
+        console.log(i);
+        piece[i] = game.add.button(game.world.width*0.5 + 70*i, game.world.height*0.3, 'piece', pieceClick, this); 
+        console.log("1");
+        piece[i].framem = i*1;
+        console.log("2");
+        piece[i].anchor.set(0.5);
+        
+    }
+
+}
 function backGame(){
     levelImg.kill();
     prevButton.kill();
@@ -82,4 +106,10 @@ function backGame(){
     playButton.revive();
     exitButton.revive();
 }
+
+function pieceClick(e){
+    e.frame = e.frame + 1;
+}
+
+
 function exitGame(){}
