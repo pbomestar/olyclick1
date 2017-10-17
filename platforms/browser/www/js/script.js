@@ -1,4 +1,5 @@
-var game = new Phaser.Game(480, 640, Phaser.CANVAS, null, {preload: preload, create: create, update: update});
+// in create: place create instead of printPieces 
+var game = new Phaser.Game(480, 640, Phaser.CANVAS, null, {preload: preload, create: printPieces, update: update});
 
 var playButton, exitButton, levels, prevButton, nextButton, textChoose, textLevel, startButton, backButton, level, maxLevel;
 
@@ -7,6 +8,7 @@ maxLevel = 5;
 level = maxLevel;
 
 function preload() {
+
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.scale.pageAlignHorizontally = true;
     game.scale.pageAlignVertically = true;
@@ -83,18 +85,25 @@ function startGame(){
     
     printPieces();
 }
+//function that shows pieces on page for that level
 function printPieces(){
-    for (var i = 0; i < 2; i++){
-        console.log(i);
-        piece[i] = game.add.button(game.world.width*0.5 + 70*i, game.world.height*0.3, 'piece', pieceClick, this); 
-        console.log("1");
-        piece[i].framem = i*1;
-        console.log("2");
-        piece[i].anchor.set(0.5);
-        
-    }
 
+pieceInfo = [
+    [
+        { "left" : 150, "top" : 250, "frame" : 1, "linked"  : [ 0 ]         },
+        { "left" : 250, "top" : 250, "frame" : 2, "linked"  : [ 0, 1 ]      }
+    ]
+]
+level = 0;
+levelPiecesNum = pieceInfo[level].length;
+
+    for (var i = 0; i < levelPiecesNum; i++){
+        piece[i] = game.add.button(pieceInfo[level][i].left, pieceInfo[level][i].top, 'piece', pieceClick.bind(this, i), this); 
+        piece[i].frame = pieceInfo[level][i].frame;
+        piece[i].anchor.set(0.5);
+    }
 }
+
 function backGame(){
     levelImg.kill();
     prevButton.kill();
@@ -107,9 +116,24 @@ function backGame(){
     exitButton.revive();
 }
 
-function pieceClick(e){
-    e.frame = e.frame + 1;
+function pieceClick(pieceNum){
+    for (var i = 0; i < pieceInfo[level][pieceNum].linked.length; i++) {
+        tempPieceNum = pieceInfo[level][pieceNum].linked[i];
+        piece[tempPieceNum].frame = piece[tempPieceNum].frame + 1;
+    };
+    isSolved();
 }
+function isSolved(){
+    var solved = 1;
+    for (var i = 0; i < levelPiecesNum; i++) {
+        if(piece[i].frame != 0) solved = 0;
+    };
+    if (solved == 1){
+        console.log("Solved");
+    } else {
+        console.log("NOT solved");
+    }
 
+}
 
 function exitGame(){}
