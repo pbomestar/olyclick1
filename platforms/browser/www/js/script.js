@@ -1,7 +1,7 @@
 // in create: place create instead of printPieces 
 var game = new Phaser.Game(480, 640, Phaser.CANVAS, null, {preload: preload, create: create, update: update});
 
-var playButton, exitButton, levelPrev, level, prevButton, nextButton, textChoose, textLevel, startButton, backButton, level, maxLevel;
+var playButton, exitButton, levelPrev, level, prevButton, nextButton, textChoose, textLevel, textCongrat, startButton, backOneButton, level, maxLevel;
 
 piece = [];
 level = 0;
@@ -35,14 +35,15 @@ function preload() {
     game.load.spritesheet('prevBtn', 'img/prev.png', 70, 50);
     game.load.spritesheet('nextBtn', 'img/next.png', 70, 50);
     game.load.spritesheet('startBtn', 'img/start12.png', 150, 50);
-    game.load.spritesheet('backBtn', 'img/back12.png', 150, 50);
-    game.load.spritesheet('gameBackBtn', 'img/back12.png', 150, 50);
+    game.load.spritesheet('backOneBtn', 'img/back12.png', 150, 50);
+    game.load.spritesheet('nextLevelBtn', 'img/nextlevel12.png', 150, 50);
+    game.load.spritesheet('backTwoBtn', 'img/back12.png', 150, 50);
     game.load.spritesheet('piece', 'img/piece.png', 50, 50);
 }
 function create() {
-    playButton = game.add.button(game.world.width*0.5, game.world.height*0.3, 'playBtn', playGame, this, 0, 0, 1, 2);
+    playButton = game.add.button(game.world.width*0.5, game.world.height*0.7, 'playBtn', playGame, this, 0, 0, 1, 2);
     playButton.anchor.set(0.5);
-    exitButton = game.add.button(game.world.width*0.5, game.world.height*0.5, 'exitBtn', exitGame, this, 0, 0, 1, 2);
+    exitButton = game.add.button(game.world.width*0.5, game.world.height*0.8, 'exitBtn', exitGame, this, 0, 0, 1, 2);
     exitButton.anchor.set(0.5);
 
 }
@@ -51,8 +52,9 @@ function update() {}
 function playGame(){
     if(typeof playButton !== 'undefined') playButton.kill();
     if(typeof exitButton !== 'undefined') exitButton.kill();
-    if(typeof gameBackButton !== 'undefined') gameBackButton.kill();
-
+    if(typeof backTwoButton !== 'undefined') backTwoButton.kill();
+    if(typeof nextLevelButton !== 'undefined') nextLevelButton.kill();
+ 
     levelImg = game.add.sprite(game.world.width*0.5, game.world.height*0.4, 'levelPrev');
     levelImg.anchor.set(0.5);
     levelImg.frame = level;
@@ -77,8 +79,8 @@ function playGame(){
 
     startButton = game.add.button(game.world.width*0.5, game.world.height*0.8, 'startBtn', startGame, this, 0, 0, 1, 2);
     startButton.anchor.set(0.5);
-    backButton = game.add.button(game.world.width*0.5, game.world.height*0.90, 'backBtn', backGame, this, 0, 0, 1, 2);
-    backButton.anchor.set(0.5);
+    backOneButton = game.add.button(game.world.width*0.5, game.world.height*0.9, 'backOneBtn', backOne, this, 0, 0, 1, 2);
+    backOneButton.anchor.set(0.5);
 }
 function prevGame(){
     level--;
@@ -99,12 +101,27 @@ function startGame(){
     textChoose.kill();
     textLevel.kill();
     startButton.kill();
-    backButton.kill();
+    backOneButton.kill();
     
     printPieces();
 
-    gameBackButton = game.add.button(game.world.width*0.5, game.world.height*0.8, 'gameBackBtn', gameMenu, this, 0, 0, 1, 2);
-    gameBackButton.anchor.set(0.5);
+
+    nextLevelButton = game.add.button(game.world.width*0.5, game.world.height*0.8, 'nextLevelBtn', nextLevel, this, 0, 0, 1, 2);
+    nextLevelButton.anchor.set(0.5);
+    toggleNextBtn();
+
+    backTwoButton = game.add.button(game.world.width*0.5, game.world.height*0.9, 'backTwoBtn', gameMenu, this, 0, 0, 1, 2);
+    backTwoButton.anchor.set(0.5);
+}
+
+function toggleNextBtn(){
+    if (nextLevelButton.alpha != 1) {
+        nextLevelButton.alpha = 1;
+        nextLevelButton.inputEnabled = true;
+    } else {
+        nextLevelButton.alpha = 0.4;
+        nextLevelButton.inputEnabled = false;
+    }
 }
 function gameMenu(){
     removePieces();
@@ -112,27 +129,42 @@ function gameMenu(){
 }
 //function that shows pieces on page for that levels
 function printPieces(){
-    levelPiecesNum = pieceInfo[level].length;
-    for (var i = 0; i < levelPiecesNum; i++){
-        piece[i] = game.add.button(pieceInfo[level][i].left, pieceInfo[level][i].top, 'piece', pieceClick.bind(this, i), this); 
-        piece[i].frame = pieceInfo[level][i].frame;
-        piece[i].anchor.set(0.5);
+    if(typeof pieceInfo[level] !== 'undefined') {
+        levelPiecesNum = pieceInfo[level].length;
+        for (var i = 0; i < levelPiecesNum; i++){
+            piece[i] = game.add.button(pieceInfo[level][i].left, pieceInfo[level][i].top, 'piece', pieceClick.bind(this, i), this); 
+            piece[i].frame = pieceInfo[level][i].frame;
+            piece[i].anchor.set(0.5);
+        }
+    } else {
+        textCongrat = game.add.text(game.world.width*0.5, game.world.height*0.5, "Wow, good job, you've done it all!\nYour brain deserves some rest now.", {
+            font: "25px Arial",
+            fill: "#ff0044",
+            align: "center"
+        });
+        textCongrat.anchor.setTo(0.5);        
+        nextLevelButton.kill();
     }
 }
 function removePieces(){
-    levelPiecesNum = pieceInfo[level].length;
-    for (var i = 0; i < levelPiecesNum; i++){
-        piece[i].kill();
+    if(typeof pieceInfo[level] !== 'undefined') {
+        levelPiecesNum = pieceInfo[level].length;
+        for (var i = 0; i < levelPiecesNum; i++){
+            piece[i].kill();
+        }
+    } else {
+        level--;
+        textCongrat.kill();
     }
 }
-function backGame(){
+function backOne(){
     levelImg.kill();
     prevButton.kill();
     nextButton.kill();
     textChoose.kill();
     textLevel.kill();
     startButton.kill();
-    backButton.kill();
+    backOneButton.kill();
     playButton.revive();
     exitButton.revive();
 }
@@ -148,17 +180,16 @@ function isSolved(pieceNum){
     var solved = 1;
     for (var i = 0; i < levelPiecesNum; i++) {
         if(piece[i].frame != 0) solved = 0;
-    };
+    }
     if (solved == 1){
         console.log("Solved");
                 
-        piece[pieceNum].inputEnabled = false;
+        for (var i = 0; i < levelPiecesNum; i++) {
+            piece[i].inputEnabled = false;
+        }
         
-        setTimeout(function(){ 
-            removePieces(); 
-            level++; 
-            printPieces() 
-        }, 500);
+        toggleNextBtn()
+        // setTimeout(function(){ ; }, 500);
 
     } else {
         console.log("NOT solved");
@@ -166,4 +197,13 @@ function isSolved(pieceNum){
 
 }
 
-function exitGame(){}
+function nextLevel(){
+    removePieces(); 
+    level++; 
+    printPieces();
+    toggleNextBtn();
+}
+
+function exitGame(){
+    navigator.app.exitApp();
+}
