@@ -5,8 +5,8 @@ var playButton, exitButton, levelPrev, level, prevButton, nextButton, textChoose
 
 piece = [];
 level = 0;
-maxLevel = 2;
-level = maxLevel;
+maxLevel = 0;
+// level = maxLevel;
 
 pieceInfo = [
     [
@@ -187,7 +187,9 @@ function isSolved(pieceNum){
         for (var i = 0; i < levelPiecesNum; i++) {
             piece[i].inputEnabled = false;
         }
-        
+        if(typeof pieceInfo[level+1] !== 'undefined') {
+            maxLevel = level + 1;
+        }
         toggleNextBtn()
         // setTimeout(function(){ ; }, 500);
 
