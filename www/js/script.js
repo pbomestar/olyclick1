@@ -1,12 +1,34 @@
-// in create: place create instead of printPieces 
+document.addEventListener("deviceready", onDeviceReady, false);
+
+// PhoneGap is ready
+function onDeviceReady() {
+    var db = window.openDatabase("olyclick", "1.0", "Olyclick db", 1000);
+    db.transaction(populateDB, errorCB, successCB);
+} 
+
+////////////////////////////////////////////////////////////////////////
+////////////   DB Section
+////////////////////////////////////////////////////////////////////////
+
+// Populate the database 
+function populateDB(tx) {
+     // tx.executeSql('DROP TABLE IF EXISTS olyclick');
+     tx.executeSql('CREATE TABLE IF NOT EXISTS olyclick (id unique DEFAULT 1, level DEFAULT 0)');
+}
+function errorCB(err) {
+    alert("Error processing SQL: "+err.message);
+}
+function successCB() {}
+
+
+//////////////////////////////////////////////////////////////////////
+////////// Global vars
+//////////////////////////////////////////////////////////////////////
+
 var game = new Phaser.Game(480, 640, Phaser.CANVAS, null, {preload: preload, create: create, update: update});
 
 var playButton, exitButton, levelPrev, level, prevButton, nextButton, textChoose, textLevel, textCongrat, startButton, backOneButton, level, maxLevel;
-
 piece = [];
-level = 0;
-maxLevel = 0;
-// level = maxLevel;
 
 pieceInfo = [
     [
@@ -24,7 +46,6 @@ pieceInfo = [
 ]
 
 function preload() {
-
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.scale.pageAlignHorizontally = true;
     game.scale.pageAlignVertically = true;
@@ -39,15 +60,46 @@ function preload() {
     game.load.spritesheet('nextLevelBtn', 'img/nextlevel12.png', 150, 50);
     game.load.spritesheet('backTwoBtn', 'img/back12.png', 150, 50);
     game.load.spritesheet('piece', 'img/piece.png', 50, 50);
+    getLevel();
 }
 function create() {
     playButton = game.add.button(game.world.width*0.5, game.world.height*0.7, 'playBtn', playGame, this, 0, 0, 1, 2);
     playButton.anchor.set(0.5);
     exitButton = game.add.button(game.world.width*0.5, game.world.height*0.8, 'exitBtn', exitGame, this, 0, 0, 1, 2);
     exitButton.anchor.set(0.5);
-
 }
 function update() {}
+
+
+//////////////////////////////////
+///// DB operations
+/////////////////////////////////
+
+function getLevel(){
+    var db = window.openDatabase("olyclick", "1.0", "Olyclick db", 1000);
+    db.transaction(queryDB, errorCB);
+}
+function queryDB(tx){
+    tx.executeSql('SELECT * FROM olyclick', [], querySuccess, errorCB);
+}
+
+function querySuccess(tx, results) {
+    var lev = results.rows.item(0).level;
+    maxLevel = lev;
+    level = maxLevel;
+}
+// Set new maxlevel that player achieved
+function setNewMaxLevel(){
+    var db = window.openDatabase("olyclick", "1.0", "Olyclick db", 1000);
+    db.transaction(writeDB, errorCB);
+}
+function writeDB(tx){
+     tx.executeSql('UPDATE olyclick SET level = ' + maxLevel + ' WHERE id = 1;');
+}
+
+////////////////////////////////////////////////////
+//////// Functions
+////////////////////////////////////////////////////
 
 function playGame(){
     if(typeof playButton !== 'undefined') playButton.kill();
@@ -104,7 +156,6 @@ function startGame(){
     backOneButton.kill();
     
     printPieces();
-
 
     nextLevelButton = game.add.button(game.world.width*0.5, game.world.height*0.8, 'nextLevelBtn', nextLevel, this, 0, 0, 1, 2);
     nextLevelButton.anchor.set(0.5);
@@ -189,16 +240,13 @@ function isSolved(pieceNum){
         }
         if(typeof pieceInfo[level+1] !== 'undefined') {
             maxLevel = level + 1;
+            setNewMaxLevel();
         }
         toggleNextBtn()
-        // setTimeout(function(){ ; }, 500);
-
     } else {
         console.log("NOT solved");
     }
-
 }
-
 function nextLevel(){
     removePieces(); 
     level++; 
