@@ -1,33 +1,8 @@
-document.addEventListener("deviceready", onDeviceReady, false);
-
-// PhoneGap is ready
-function onDeviceReady() {
-    var db = window.openDatabase("olyclick", "1.0", "Olyclick db", 1000);
-    db.transaction(populateDB, errorCB, successCB);
-} 
-
-////////////////////////////////////////////////////////////////////////
-////////////   DB Section
-////////////////////////////////////////////////////////////////////////
-
-// Populate the database 
-function populateDB(tx) {
-     // tx.executeSql('DROP TABLE IF EXISTS olyclick');
-     tx.executeSql('CREATE TABLE IF NOT EXISTS olyclick (id unique DEFAULT 1, level DEFAULT 0)');
-}
-function errorCB(err) {
-    alert("Error processing SQL: "+err.message);
-}
-function successCB() {}
-
-
 //////////////////////////////////////////////////////////////////////
 ////////// Global vars
 //////////////////////////////////////////////////////////////////////
 
-var game = new Phaser.Game(480, 640, Phaser.CANVAS, null, {preload: preload, create: create, update: update});
-
-var playButton, exitButton, levelPrev, level, prevButton, nextButton, textChoose, textLevel, textCongrat, startButton, backOneButton, level, maxLevel;
+var game, playButton, exitButton, levelPrev, level, prevButton, nextButton, textChoose, textLevel, textCongrat, startButton, backOneButton, level, maxLevel;
 piece = [];
 
 pieceInfo = [
@@ -45,25 +20,57 @@ pieceInfo = [
     ]
 ]
 
+/////////////////////////////////////////////
+/////// When device is ready
+/////////////////////////////////////////////
+document.addEventListener("deviceready", onDeviceReady, false);
+
+
+// Device is ready
+function onDeviceReady() {
+    var db = window.openDatabase("olyclick", "1.0", "Olyclick db", 1000);
+    db.transaction(populateDB, errorCB, successCB);
+    game = new Phaser.Game(480, 640, Phaser.CANVAS, null, {preload: preload, create: create, update: update}, true);
+} 
+
+////////////////////////////////////////////////////////////////////////
+////////////   DB Section
+////////////////////////////////////////////////////////////////////////
+
+// Populate the database 
+function populateDB(tx) {
+     // tx.executeSql('DROP TABLE IF EXISTS olyclick');
+     tx.executeSql('CREATE TABLE IF NOT EXISTS olyclick (id unique DEFAULT 1, level DEFAULT 0)');
+}
+function errorCB(err) {
+    alert("Error processing SQL: "+err.message);
+}
+function successCB() {}
+
+
+/////////////////////////////////////////////////////
+///////////// Phaser functions
+/////////////////////////////////////////////////////
+
 function preload() {
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.scale.pageAlignHorizontally = true;
     game.scale.pageAlignVertically = true;
     game.stage.backgroundColor = '#eee';
-    game.load.spritesheet('playBtn', 'img/play12.png', 150, 50);
-    game.load.spritesheet('exitBtn', 'img/exit12.png', 150, 50);
+    game.load.spritesheet('playBtn', 'img/play12.png', 170, 88);
+    game.load.spritesheet('exitBtn', 'img/exit14.png', 170, 88);
     game.load.spritesheet('levelPrev', 'img/levels.png', 200, 200);
     game.load.spritesheet('prevBtn', 'img/prev.png', 70, 50);
     game.load.spritesheet('nextBtn', 'img/next.png', 70, 50);
-    game.load.spritesheet('startBtn', 'img/start12.png', 150, 50);
-    game.load.spritesheet('backOneBtn', 'img/back12.png', 150, 50);
+    game.load.spritesheet('startBtn', 'img/start12.png', 170, 88);
+    game.load.spritesheet('backOneBtn', 'img/back12.png', 170, 88);
     game.load.spritesheet('nextLevelBtn', 'img/nextlevel12.png', 150, 50);
-    game.load.spritesheet('backTwoBtn', 'img/back12.png', 150, 50);
+    game.load.spritesheet('backTwoBtn', 'img/back12.png', 170, 88);
     game.load.spritesheet('piece', 'img/piece.png', 50, 50);
     getLevel();
 }
 function create() {
-    playButton = game.add.button(game.world.width*0.5, game.world.height*0.7, 'playBtn', playGame, this, 0, 0, 1, 2);
+    playButton = game.add.button(game.world.width*0.5, game.world.height*0.6, 'playBtn', playGame, this, 0, 0, 1, 2);
     playButton.anchor.set(0.5);
     exitButton = game.add.button(game.world.width*0.5, game.world.height*0.8, 'exitBtn', exitGame, this, 0, 0, 1, 2);
     exitButton.anchor.set(0.5);
@@ -102,6 +109,7 @@ function writeDB(tx){
 ////////////////////////////////////////////////////
 
 function playGame(){
+
     if(typeof playButton !== 'undefined') playButton.kill();
     if(typeof exitButton !== 'undefined') exitButton.kill();
     if(typeof backTwoButton !== 'undefined') backTwoButton.kill();
@@ -129,7 +137,7 @@ function playGame(){
     });
     textLevel.anchor.setTo(0.5);
 
-    startButton = game.add.button(game.world.width*0.5, game.world.height*0.8, 'startBtn', startGame, this, 0, 0, 1, 2);
+    startButton = game.add.button(game.world.width*0.5, game.world.height*0.75, 'startBtn', startGame, this, 0, 0, 1, 2);
     startButton.anchor.set(0.5);
     backOneButton = game.add.button(game.world.width*0.5, game.world.height*0.9, 'backOneBtn', backOne, this, 0, 0, 1, 2);
     backOneButton.anchor.set(0.5);
