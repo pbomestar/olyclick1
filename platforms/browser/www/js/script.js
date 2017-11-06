@@ -58,15 +58,16 @@ function preload() {
     game.scale.pageAlignVertically = true;
     game.stage.backgroundColor = '#eee';
     game.load.spritesheet('playBtn', 'img/play12.png', 170, 88);
-    game.load.spritesheet('exitBtn', 'img/exit14.png', 170, 88);
+    game.load.spritesheet('exitBtn', 'img/exit12.png', 150, 80);
     game.load.spritesheet('levelPrev', 'img/levels.png', 200, 200);
-    game.load.spritesheet('prevBtn', 'img/prev.png', 70, 50);
-    game.load.spritesheet('nextBtn', 'img/next.png', 70, 50);
-    game.load.spritesheet('startBtn', 'img/start12.png', 170, 88);
-    game.load.spritesheet('backOneBtn', 'img/back12.png', 170, 88);
-    game.load.spritesheet('nextLevelBtn', 'img/nextlevel12.png', 150, 50);
-    game.load.spritesheet('backTwoBtn', 'img/back12.png', 170, 88);
-    game.load.spritesheet('piece', 'img/piece.png', 50, 50);
+    game.load.spritesheet('prevBtn', 'img/left12.png', 73, 76);
+    game.load.spritesheet('nextBtn', 'img/right12.png', 73, 76);
+    game.load.spritesheet('startBtn', 'img/start12.png', 150, 80);
+    game.load.spritesheet('backOneBtn', 'img/back12.png', 150, 80);
+    game.load.spritesheet('nextLevelBtn', 'img/next12.png', 150, 80);
+    game.load.spritesheet('backTwoBtn', 'img/back12.png', 150, 80);
+    game.load.spritesheet('piece', 'img/pieces.png', 70, 70);
+    game.load.bitmapFont('bomicsans', 'font/bomicSans.png', 'font/bomicSans.fnt');
     getLevel();
 }
 function create() {
@@ -119,27 +120,30 @@ function playGame(){
     levelImg.anchor.set(0.5);
     levelImg.frame = level;
     
-    prevButton = game.add.button(game.world.width*0.3, game.world.height*0.65, 'prevBtn', prevGame, this, 0, 0, 1, 2);
+    prevButton = game.add.button(game.world.width*0.3, game.world.height-200, 'prevBtn', prevGame, this, 0, 0, 1, 2);
     prevButton.anchor.set(0.5);
-    nextButton = game.add.button(game.world.width*0.7, game.world.height*0.65, 'nextBtn', nextGame, this, 0, 0, 1, 2);
+    nextButton = game.add.button(game.world.width*0.7, game.world.height-200, 'nextBtn', nextGame, this, 0, 0, 1, 2);
     nextButton.anchor.set(0.5);
-    textChoose = game.add.text(game.world.width*0.5, game.world.height*0.2, "Choose a game level:", {
-        font: "25px Arial",
-        fill: "#ff0044",
-        align: "center"
-    });
+
+    // Text
+    textChoose = game.add.bitmapText(game.world.width*0.5, game.world.height*0.1, 'bomicsans', 'Choose a Level', 35);
     textChoose.anchor.setTo(0.5);
 
-    textLevel = game.add.text(game.world.width*0.5, game.world.height*0.65, level+1, {
-        font: "25px Arial",
-        fill: "#ff0044",
-        align: "center"
-    });
+    // textChoose = game.add.text(game.world.width*0.5, game.world.height*0.2, "Choose a game level:", {
+    //     font: "25px bomicSans",
+    //     fill: "#ff0044",
+    //     align: "center"
+    // });
+    // textChoose.anchor.setTo(0.5);
+
+
+    textLevel = game.add.bitmapText(game.world.width*0.5, game.world.height-200, 'bomicsans', level+1, 40);
+    // textLevel.setText(level+1);
     textLevel.anchor.setTo(0.5);
 
-    startButton = game.add.button(game.world.width*0.5, game.world.height*0.75, 'startBtn', startGame, this, 0, 0, 1, 2);
+    startButton = game.add.button(3/5*(game.world.width-300)+150+75, game.world.height-40, 'startBtn', startGame, this, 0, 0, 1, 2);
     startButton.anchor.set(0.5);
-    backOneButton = game.add.button(game.world.width*0.5, game.world.height*0.9, 'backOneBtn', backOne, this, 0, 0, 1, 2);
+    backOneButton = game.add.button(2/5*(game.world.width-300)+75, game.world.height-40, 'backOneBtn', backOne, this, 0, 0, 1, 2);
     backOneButton.anchor.set(0.5);
 }
 function prevGame(){
@@ -165,11 +169,11 @@ function startGame(){
     
     printPieces();
 
-    nextLevelButton = game.add.button(game.world.width*0.5, game.world.height*0.8, 'nextLevelBtn', nextLevel, this, 0, 0, 1, 2);
+    nextLevelButton = game.add.button(3/5*(game.world.width-300)+150+75, game.world.height-40, 'nextLevelBtn', nextLevel, this, 0, 0, 1, 2);
     nextLevelButton.anchor.set(0.5);
     toggleNextBtn();
 
-    backTwoButton = game.add.button(game.world.width*0.5, game.world.height*0.9, 'backTwoBtn', gameMenu, this, 0, 0, 1, 2);
+    backTwoButton = game.add.button(2/5*(game.world.width-300)+75, game.world.height-40, 'backTwoBtn', gameMenu, this, 0, 0, 1, 2);
     backTwoButton.anchor.set(0.5);
 }
 
