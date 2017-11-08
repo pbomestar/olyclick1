@@ -66,7 +66,8 @@ function preload() {
     game.load.spritesheet('backOneBtn', 'img/back12.png', 150, 80);
     game.load.spritesheet('nextLevelBtn', 'img/next12.png', 150, 80);
     game.load.spritesheet('backTwoBtn', 'img/back12.png', 150, 80);
-    game.load.spritesheet('piece', 'img/pieces.png', 70, 70);
+    game.load.spritesheet('piece', 'img/pieces.png', 80, 80);
+
     game.load.bitmapFont('bomicsans', 'font/bomicSans.png', 'font/bomicSans.fnt');
     getLevel();
 }
@@ -233,6 +234,14 @@ function backOne(){
 }
 
 function pieceClick(pieceNum){
+    var pieceTemp = piece[pieceNum];
+    var tweenDown = game.add.tween(pieceTemp).to( { y: '+7' }, 15, Phaser.Easing.Linear.None, true);
+
+    tweenDown.onComplete.add( function(){
+        game.add.tween(pieceTemp).to( { y: '-7' }, 20, Phaser.Easing.Linear.None, true);
+    });
+
+
     for (var i = 0; i < pieceInfo[level][pieceNum].linked.length; i++) {
         tempPieceNum = pieceInfo[level][pieceNum].linked[i];
         piece[tempPieceNum].frame = piece[tempPieceNum].frame + 1;
