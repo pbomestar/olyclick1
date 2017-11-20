@@ -2,23 +2,12 @@
 ////////// Global vars
 //////////////////////////////////////////////////////////////////////
 
-var game, playButton, exitButton, levelPrev, level, prevButton, nextButton, textChoose, textLevel, textCongrat, startButton, backOneButton, level, maxLevel;
-piece = [];
 
-pieceInfo = [
-    [
-        { "left" : 100, "top" : 250, "frame" : 1, "linked"  : [ 0 ]         },
-    ],
-    [
-        { "left" : 150, "top" : 250, "frame" : 1, "linked"  : [ 0 ]         },
-        { "left" : 250, "top" : 250, "frame" : 2, "linked"  : [ 0, 1 ]      }
-    ],
-    [
-        { "left" : 150, "top" : 250, "frame" : 1, "linked"  : [ 0 ]         },
-        { "left" : 270, "top" : 350, "frame" : 0, "linked"  : [ 0, 2 ]      },
-        { "left" : 320, "top" : 250, "frame" : 2, "linked"  : [ 1, 2 ]      }
-    ]
-]
+var game, playButton, exitButton, levelPrev, level, prevButton, nextButton, textChoose, textLevel, textCongrat, startButton, backOneButton, level, maxLevel;
+var piece = [];
+var pieceInfo = [];
+
+getPieceInfo();
 
 /////////////////////////////////////////////
 /////// When device is ready
@@ -59,14 +48,14 @@ function preload() {
     game.stage.backgroundColor = '#eee';
     game.load.spritesheet('playBtn', 'img/play12.png', 170, 88);
     game.load.spritesheet('exitBtn', 'img/exit12.png', 150, 80);
-    game.load.spritesheet('levelPrev', 'img/levels.png', 200, 200);
+    game.load.spritesheet('levelPrev', 'img/levels.png', 300, 300);
     game.load.spritesheet('prevBtn', 'img/left12.png', 73, 76);
     game.load.spritesheet('nextBtn', 'img/right12.png', 73, 76);
     game.load.spritesheet('startBtn', 'img/start12.png', 150, 80);
     game.load.spritesheet('backOneBtn', 'img/back12.png', 150, 80);
     game.load.spritesheet('nextLevelBtn', 'img/next12.png', 150, 80);
     game.load.spritesheet('backTwoBtn', 'img/back12.png', 150, 80);
-    game.load.spritesheet('piece', 'img/pieces.png', 80, 80);
+    game.load.spritesheet('piece', 'img/pieces.png', 70, 70);
 
     game.load.bitmapFont('bomicsans', 'font/bomicSans.png', 'font/bomicSans.fnt');
     getLevel();
@@ -129,14 +118,6 @@ function playGame(){
     // Text
     textChoose = game.add.bitmapText(game.world.width*0.5, game.world.height*0.1, 'bomicsans', 'Choose a Level', 35);
     textChoose.anchor.setTo(0.5);
-
-    // textChoose = game.add.text(game.world.width*0.5, game.world.height*0.2, "Choose a game level:", {
-    //     font: "25px bomicSans",
-    //     fill: "#ff0044",
-    //     align: "center"
-    // });
-    // textChoose.anchor.setTo(0.5);
-
 
     textLevel = game.add.bitmapText(game.world.width*0.5, game.world.height-200, 'bomicsans', level+1, 40);
     // textLevel.setText(level+1);
@@ -277,4 +258,55 @@ function nextLevel(){
 
 function exitGame(){
     navigator.app.exitApp();
+}
+
+
+function getPieceInfo(){
+    pieceInfo = [
+        //////////////////////////////////  1  //////////////////////////////////
+        [
+            { "left" : 240, "top" : 300, "frame" : 1, "linked"  : [ 0 ]         },
+        ],
+        //////////////////////////////////  2  //////////////////////////////////
+        [
+            { "left" : 180, "top" : 300, "frame" : 1, "linked"  : [ 0 ]         },
+            { "left" : 300, "top" : 300, "frame" : 2, "linked"  : [ 0, 1 ]      }
+        ],
+        //////////////////////////////////  3  //////////////////////////////////
+        [
+            { "left" : 240, "top" : 240, "frame" : 0, "linked"  : [ 0, 2 ]      },
+            { "left" : 170, "top" : 360, "frame" : 1, "linked"  : [ 1, 0 ]      },
+            { "left" : 310, "top" : 360, "frame" : 2, "linked"  : [ 2, 1 ]      }
+        ],
+        //////////////////////////////////  4  //////////////////////////////////
+        [
+            { "left" : 240, "top" : 190, "frame" : 1, "linked"  : [ 0, 1, 2 ]      },
+            { "left" : 170, "top" : 280, "frame" : 2, "linked"  : [ 1, 0, 3 ]      },
+            { "left" : 310, "top" : 280, "frame" : 0, "linked"  : [ 2, 0, 3 ]      },
+            { "left" : 240, "top" : 370, "frame" : 0, "linked"  : [ 3, 1, 2 ]      }
+        ],
+        //////////////////////////////////  5  //////////////////////////////////
+        [
+            { "left" : 120, "top" : 250, "frame" : 1, "linked"  : [ 0, 3 ]         },
+            { "left" : 235, "top" : 250, "frame" : 0, "linked"  : [ 1, 3, 4 ]      },
+            { "left" : 350, "top" : 250, "frame" : 2, "linked"  : [ 2, 4 ]         },
+            { "left" : 177, "top" : 370, "frame" : 0, "linked"  : [ 3, 0, 1 ]      },
+            { "left" : 293, "top" : 370, "frame" : 1, "linked"  : [ 4, 1, 2 ]      }
+        ],
+        //////////////////////////////////  6  //////////////////////////////////
+        [
+            { "left" : 177, "top" : 130, "frame" : 1, "linked"  : [ 4, 1, 2 ]      },
+            { "left" : 293, "top" : 130, "frame" : 1, "linked"  : [ 4, 1, 2 ]      },
+            
+            { "left" : 80,  "top" : 250, "frame" : 1, "linked"  : [ 0, 3 ]         },
+            { "left" : 160, "top" : 250, "frame" : 0, "linked"  : [ 1, 3, 4 ]      },
+            { "left" : 240, "top" : 250, "frame" : 2, "linked"  : [ 2, 4 ]         },
+            { "left" : 320, "top" : 250, "frame" : 0, "linked"  : [ 3, 0, 1 ]      },
+            { "left" : 400, "top" : 250, "frame" : 1, "linked"  : [ 4, 1, 2 ]      },
+            
+            { "left" : 177, "top" : 370, "frame" : 1, "linked"  : [ 4, 1, 2 ]      },
+            { "left" : 293, "top" : 370, "frame" : 1, "linked"  : [ 4, 1, 2 ]      }
+        ]
+
+    ]
 }
