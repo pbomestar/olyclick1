@@ -58,7 +58,7 @@ function preload() {
     game.load.spritesheet('piece', 'img/pieces.png', 70, 70);
 
     game.load.bitmapFont('bomicsans', 'font/bomicSans.png', 'font/bomicSans.fnt');
-    getLevel();
+    getLevel1();
 }
 function create() {
     playButton = game.add.button(game.world.width*0.5, game.world.height*0.6, 'playBtn', playGame, this, 0, 0, 1, 2);
@@ -295,18 +295,82 @@ function getPieceInfo(){
         ],
         //////////////////////////////////  6  //////////////////////////////////
         [
-            { "left" : 177, "top" : 130, "frame" : 1, "linked"  : [ 4, 1, 2 ]      },
-            { "left" : 293, "top" : 130, "frame" : 1, "linked"  : [ 4, 1, 2 ]      },
-            
-            { "left" : 80,  "top" : 250, "frame" : 1, "linked"  : [ 0, 3 ]         },
-            { "left" : 160, "top" : 250, "frame" : 0, "linked"  : [ 1, 3, 4 ]      },
-            { "left" : 240, "top" : 250, "frame" : 2, "linked"  : [ 2, 4 ]         },
-            { "left" : 320, "top" : 250, "frame" : 0, "linked"  : [ 3, 0, 1 ]      },
-            { "left" : 400, "top" : 250, "frame" : 1, "linked"  : [ 4, 1, 2 ]      },
-            
-            { "left" : 177, "top" : 370, "frame" : 1, "linked"  : [ 4, 1, 2 ]      },
-            { "left" : 293, "top" : 370, "frame" : 1, "linked"  : [ 4, 1, 2 ]      }
+            { "left" : 180, "top" : 170, "frame" : 1, "linked"  : [ 0, 1, 2 ]      },
+            { "left" : 300, "top" : 170, "frame" : 2, "linked"  : [ 1, 0, 3 ]      },
+            { "left" : 120, "top" : 280, "frame" : 2, "linked"  : [ 2, 0, 4 ]      },
+            { "left" : 360, "top" : 280, "frame" : 0, "linked"  : [ 3, 1, 5 ]      },
+            { "left" : 180, "top" : 390, "frame" : 0, "linked"  : [ 4, 2, 5 ]      },
+            { "left" : 300, "top" : 390, "frame" : 1, "linked"  : [ 5, 4, 3 ]      }
+        ],
+        //////////////////////////////////  7  //////////////////////////////////
+        [
+            { "left" : 180, "top" : 170, "frame" : 1, "linked"  : [ 0, 1, 2 ]               },
+            { "left" : 300, "top" : 170, "frame" : 2, "linked"  : [ 1, 0, 4 ]               },
+            { "left" : 120, "top" : 280, "frame" : 2, "linked"  : [ 2, 0, 5 ]               },
+            { "left" : 240, "top" : 280, "frame" : 1, "linked"  : [ 0, 1, 2, 3, 4, 5, 6 ]   },
+            { "left" : 360, "top" : 280, "frame" : 0, "linked"  : [ 4, 1, 6 ]               },
+            { "left" : 180, "top" : 390, "frame" : 0, "linked"  : [ 5, 2, 6 ]               },
+            { "left" : 300, "top" : 390, "frame" : 1, "linked"  : [ 6, 4, 5 ]               }
+        ],
+        //////////////////////////////////  8  //////////////////////////////////
+        [
+            { "left" : 120, "top" : 170, "frame" : 1, "linked"  : [ 0, 3 ]        },
+            { "left" : 240, "top" : 170, "frame" : 2, "linked"  : [ 1, 3, 4 ]     },
+            { "left" : 360, "top" : 170, "frame" : 2, "linked"  : [ 2, 4 ]        },
+            { "left" : 180, "top" : 280, "frame" : 1, "linked"  : [ 3, 4 ]        },
+            { "left" : 300, "top" : 280, "frame" : 0, "linked"  : [ 4, 3 ]        },
+            { "left" : 120, "top" : 390, "frame" : 0, "linked"  : [ 5, 3 ]        },
+            { "left" : 240, "top" : 390, "frame" : 1, "linked"  : [ 6, 3, 4 ]     },
+            { "left" : 360, "top" : 390, "frame" : 1, "linked"  : [ 7, 4 ]        }
+        ],
+        //////////////////////////////////  9  //////////////////////////////////
+        [
+            { "left" : 240, "top" : 140, "frame" : 2, "linked"  : [ 0, 1, 2 ]           },
+            { "left" : 170, "top" : 210, "frame" : 1, "linked"  : [ 1, 4 ]              },
+            { "left" : 310, "top" : 210, "frame" : 0, "linked"  : [ 2, 4 ]              },
+            { "left" : 100, "top" : 280, "frame" : 0, "linked"  : [ 3, 1, 6 ]           },
+            { "left" : 240, "top" : 280, "frame" : 1, "linked"  : [ 4, 0, 3, 5, 8 ]     },
+            { "left" : 380, "top" : 280, "frame" : 0, "linked"  : [ 5, 2, 7]            },
+            { "left" : 170, "top" : 350, "frame" : 2, "linked"  : [ 6, 4]               },
+            { "left" : 310, "top" : 350, "frame" : 1, "linked"  : [ 7, 4 ]              },
+            { "left" : 240, "top" : 420, "frame" : 1, "linked"  : [ 8, 6, 7 ]           }
+        ],
+        //////////////////////////////////  10  //////////////////////////////////
+        [
+            { "left" : 100, "top" : 140, "frame" : 0, "linked"  : [ 0, 2 ]              },
+            { "left" : 380, "top" : 140, "frame" : 2, "linked"  : [ 1, 3 ]              },
+            { "left" : 170, "top" : 210, "frame" : 1, "linked"  : [ 2, 0, 4 ]           },
+            { "left" : 310, "top" : 210, "frame" : 0, "linked"  : [ 3, 1, 4 ]           },
+            { "left" : 240, "top" : 280, "frame" : 1, "linked"  : [ 4, 2, 3, 5, 6 ]     },
+            { "left" : 170, "top" : 350, "frame" : 2, "linked"  : [ 5, 4, 7 ]           },
+            { "left" : 310, "top" : 350, "frame" : 1, "linked"  : [ 6, 4, 8 ]           },
+            { "left" : 100, "top" : 420, "frame" : 1, "linked"  : [ 7, 5 ]              },
+            { "left" : 380, "top" : 420, "frame" : 0, "linked"  : [ 8, 6 ]              }
+
         ]
+
+
+
+
 
     ]
 }
+
+function getLevel1(){
+    maxLevel = 9;
+    level = maxLevel;
+}
+
+        // [
+        //     { "left" : 177, "top" : 130, "frame" : 1, "linked"  : [ 4, 1, 2 ]      },
+        //     { "left" : 293, "top" : 130, "frame" : 1, "linked"  : [ 4, 1, 2 ]      },
+            
+        //     { "left" : 80,  "top" : 250, "frame" : 1, "linked"  : [ 0, 3 ]         },
+        //     { "left" : 160, "top" : 250, "frame" : 0, "linked"  : [ 1, 3, 4 ]      },
+        //     { "left" : 240, "top" : 250, "frame" : 2, "linked"  : [ 2, 4 ]         },
+        //     { "left" : 320, "top" : 250, "frame" : 0, "linked"  : [ 3, 0, 1 ]      },
+        //     { "left" : 400, "top" : 250, "frame" : 1, "linked"  : [ 4, 1, 2 ]      },
+            
+        //     { "left" : 177, "top" : 370, "frame" : 1, "linked"  : [ 4, 1, 2 ]      },
+        //     { "left" : 293, "top" : 370, "frame" : 1, "linked"  : [ 4, 1, 2 ]      }
+        // ]
