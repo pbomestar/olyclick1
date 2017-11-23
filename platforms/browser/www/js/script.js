@@ -240,7 +240,8 @@ function isSolved(pieceNum){
         for (var i = 0; i < levelPiecesNum; i++) {
             piece[i].inputEnabled = false;
         }
-        if(typeof pieceInfo[level+1] !== 'undefined') {
+        if( (typeof pieceInfo[level+1] !== 'undefined') && (level == maxLevel
+            ) ) {
             maxLevel = level + 1;
             setNewMaxLevel();
         }
@@ -272,11 +273,24 @@ function getPieceInfo(){
             { "left" : 180, "top" : 300, "frame" : 1, "linked"  : [ 0 ]         },
             { "left" : 300, "top" : 300, "frame" : 2, "linked"  : [ 0, 1 ]      }
         ],
+        //////////////////////////////////  3a  //////////////////////////////////
+        [
+            { "left" : 120, "top" : 280, "frame" : 1, "linked"  : [ 0, 1 ]      },
+            { "left" : 240, "top" : 280, "frame" : 2, "linked"  : [ 1 ]   },
+            { "left" : 360, "top" : 280, "frame" : 1, "linked"  : [ 2, 1 ]      }
+        ],
         //////////////////////////////////  3  //////////////////////////////////
         [
             { "left" : 240, "top" : 240, "frame" : 0, "linked"  : [ 0, 2 ]      },
             { "left" : 170, "top" : 360, "frame" : 1, "linked"  : [ 1, 0 ]      },
             { "left" : 310, "top" : 360, "frame" : 2, "linked"  : [ 2, 1 ]      }
+        ],
+        //////////////////////////////////  4a  //////////////////////////////////
+        [
+            { "left" : 120, "top" : 250, "frame" : 2, "linked"  : [ 0, 1 ]      },
+            { "left" : 240, "top" : 250, "frame" : 1, "linked"  : [ 1, 0, 2 ]   },
+            { "left" : 360, "top" : 250, "frame" : 0, "linked"  : [ 2, 1 ]      },
+            { "left" : 240, "top" : 360, "frame" : 1, "linked"  : [ 3, 1 ]      }
         ],
         //////////////////////////////////  4  //////////////////////////////////
         [
@@ -284,6 +298,14 @@ function getPieceInfo(){
             { "left" : 170, "top" : 280, "frame" : 2, "linked"  : [ 1, 0, 3 ]      },
             { "left" : 310, "top" : 280, "frame" : 0, "linked"  : [ 2, 0, 3 ]      },
             { "left" : 240, "top" : 370, "frame" : 0, "linked"  : [ 3, 1, 2 ]      }
+        ],
+        //////////////////////////////////  5a  //////////////////////////////////
+        [
+            { "left" : 240, "top" : 180, "frame" : 1, "linked"  : [ 0, 2 ]              },
+            { "left" : 120, "top" : 290, "frame" : 2, "linked"  : [ 1, 2 ]              },
+            { "left" : 240, "top" : 290, "frame" : 1, "linked"  : [ 2, 0, 1, 3, 4 ]     },
+            { "left" : 360, "top" : 290, "frame" : 0, "linked"  : [ 3, 2 ]              },
+            { "left" : 240, "top" : 400, "frame" : 1, "linked"  : [ 4, 2 ]              }
         ],
         //////////////////////////////////  5  //////////////////////////////////
         [
@@ -301,6 +323,25 @@ function getPieceInfo(){
             { "left" : 360, "top" : 280, "frame" : 0, "linked"  : [ 3, 1, 5 ]      },
             { "left" : 180, "top" : 390, "frame" : 0, "linked"  : [ 4, 2, 5 ]      },
             { "left" : 300, "top" : 390, "frame" : 1, "linked"  : [ 5, 4, 3 ]      }
+        ],
+        //////////////////////////////////  6b //////////////////////////////////
+        [
+            { "left" : 235, "top" : 170, "frame" : 1, "linked"  : [ 0, 1, 2 ]   },
+            { "left" : 177, "top" : 280, "frame" : 2, "linked"  : [ 1, 2, 4 ]   },
+            { "left" : 293, "top" : 280, "frame" : 1, "linked"  : [ 2, 1, 4 ]   },
+            { "left" : 120, "top" : 390, "frame" : 0, "linked"  : [ 3, 1, 4 ]   },
+            { "left" : 235, "top" : 390, "frame" : 0, "linked"  : [ 4, 1, 2 ]   },
+            { "left" : 350, "top" : 390, "frame" : 2, "linked"  : [ 5, 2, 4 ]   }
+        ],
+        //////////////////////////////////  7a  //////////////////////////////////
+        [
+            { "left" : 240, "top" : 170, "frame" : 2, "linked"  : [ 0, 2]               },
+            { "left" : 120, "top" : 280, "frame" : 2, "linked"  : [ 1, 2 ]              },
+            { "left" : 240, "top" : 280, "frame" : 1, "linked"  : [ 2, 0, 1, 3, 5 ]     },
+            { "left" : 360, "top" : 280, "frame" : 2, "linked"  : [ 3, 2 ]              },
+            { "left" : 120, "top" : 390, "frame" : 1, "linked"  : [ 4, 1, 5 ]           },
+            { "left" : 240, "top" : 390, "frame" : 0, "linked"  : [ 5, 2 ]              },
+            { "left" : 360, "top" : 390, "frame" : 0, "linked"  : [ 6, 3, 5 ]           }
         ],
         //////////////////////////////////  7  //////////////////////////////////
         [
@@ -357,7 +398,7 @@ function getPieceInfo(){
 }
 
 function getLevel1(){
-    maxLevel = 9;
+    maxLevel = 10;
     level = maxLevel;
 }
 
