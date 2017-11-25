@@ -353,16 +353,61 @@ function getPieceInfo(){
             { "left" : 180, "top" : 390, "frame" : 0, "linked"  : [ 5, 2, 6 ]               },
             { "left" : 300, "top" : 390, "frame" : 1, "linked"  : [ 6, 4, 5 ]               }
         ],
+        //////////////////////////////////  7b //////////////////////////////////
+        [
+            { "left" : 235, "top" : 150, "frame" : 2, "linked"  : [ 0, 1, 2 ]   },
+            { "left" : 177, "top" : 240, "frame" : 0, "linked"  : [ 1, 0, 3 ]   },
+            { "left" : 293, "top" : 240, "frame" : 1, "linked"  : [ 2, 0, 4 ]   },
+            { "left" : 120, "top" : 330, "frame" : 1, "linked"  : [ 3, 1, 5 ]   },
+            { "left" : 350, "top" : 330, "frame" : 1, "linked"  : [ 4, 2, 6 ]   },
+            { "left" : 177, "top" : 420, "frame" : 0, "linked"  : [ 5, 3 ]      },
+            { "left" : 293, "top" : 420, "frame" : 2, "linked"  : [ 6, 4 ]      }
+        ],
+        //////////////////////////////////  8a  //////////////////////////////////
+        [
+            { "left" : 140, "top" : 170, "frame" : 2, "linked"  : [ 0, 1, 3 ]     },
+            { "left" : 240, "top" : 170, "frame" : 2, "linked"  : [ 1, 0, 2 ]     },
+            { "left" : 340, "top" : 170, "frame" : 1, "linked"  : [ 2, 1, 4 ]     },
+            { "left" : 140, "top" : 280, "frame" : 0, "linked"  : [ 3, 0, 5 ]     },
+            { "left" : 340, "top" : 280, "frame" : 2, "linked"  : [ 4, 2, 7 ]     },
+            { "left" : 140, "top" : 390, "frame" : 2, "linked"  : [ 5, 3, 6 ]     },
+            { "left" : 240, "top" : 390, "frame" : 0, "linked"  : [ 6, 5, 7 ]     },
+            { "left" : 340, "top" : 390, "frame" : 0, "linked"  : [ 7, 4, 6 ]     }
+        ],
         //////////////////////////////////  8  //////////////////////////////////
         [
-            { "left" : 120, "top" : 170, "frame" : 1, "linked"  : [ 0, 3 ]        },
-            { "left" : 240, "top" : 170, "frame" : 2, "linked"  : [ 1, 3, 4 ]     },
-            { "left" : 360, "top" : 170, "frame" : 2, "linked"  : [ 2, 4 ]        },
-            { "left" : 180, "top" : 280, "frame" : 1, "linked"  : [ 3, 4 ]        },
-            { "left" : 300, "top" : 280, "frame" : 0, "linked"  : [ 4, 3 ]        },
-            { "left" : 120, "top" : 390, "frame" : 0, "linked"  : [ 5, 3 ]        },
-            { "left" : 240, "top" : 390, "frame" : 1, "linked"  : [ 6, 3, 4 ]     },
-            { "left" : 360, "top" : 390, "frame" : 1, "linked"  : [ 7, 4 ]        }
+            { "left" : 120, "top" : 170, "frame" : 0, "linked"  : [ 0, 1, 3 ]       },
+            { "left" : 240, "top" : 170, "frame" : 1, "linked"  : [ 1, 3, 4 ]       },
+            { "left" : 360, "top" : 170, "frame" : 0, "linked"  : [ 2, 1, 4 ]       },
+            { "left" : 180, "top" : 280, "frame" : 0, "linked"  : [ 3, 1, 6 ]       },
+            { "left" : 300, "top" : 280, "frame" : 2, "linked"  : [ 4, 1, 6 ]       },
+            { "left" : 120, "top" : 390, "frame" : 2, "linked"  : [ 5, 3, 6 ]       },
+            { "left" : 240, "top" : 390, "frame" : 1, "linked"  : [ 6, 3, 4 ]       },
+            { "left" : 360, "top" : 390, "frame" : 0, "linked"  : [ 7, 4, 6 ]       }
+        ],
+        //////////////////////////////////  9a  //////////////////////////////////
+        [
+            { "left" : 120, "top" : 120, "frame" : 1, "linked"  : [ 0, 1, 3 ]   },
+            { "left" : 240, "top" : 120, "frame" : 2, "linked"  : [ 1, 0, 2 ]   },
+            { "left" : 360, "top" : 120, "frame" : 0, "linked"  : [ 2, 1 ]      },
+            { "left" : 180, "top" : 200, "frame" : 2, "linked"  : [ 3, 0, 4 ]   },
+            { "left" : 240, "top" : 280, "frame" : 0, "linked"  : [ 4, 3, 5 ]   },
+            { "left" : 300, "top" : 360, "frame" : 2, "linked"  : [ 5, 4, 8 ]   },
+            { "left" : 120, "top" : 440, "frame" : 1, "linked"  : [ 6, 7 ]      },
+            { "left" : 240, "top" : 440, "frame" : 2, "linked"  : [ 7, 6, 8 ]   },
+            { "left" : 360, "top" : 440, "frame" : 1, "linked"  : [ 8, 5, 7 ]   }
+        ],
+        //////////////////////////////////  9a1  //////////////////////////////////
+        [
+            { "left" : 130, "top" : 120, "frame" : 1, "linked"  : [ 0, 1, 2 ]       },
+            { "left" : 240, "top" : 170, "frame" : 2, "linked"  : [ 1, 2, 3 ]       },
+            { "left" : 130, "top" : 220, "frame" : 0, "linked"  : [ 2, 1, 4 ]       },
+            { "left" : 350, "top" : 220, "frame" : 2, "linked"  : [ 3, 1, 4 ]       },
+            { "left" : 240, "top" : 270, "frame" : 0, "linked"  : [ 4, 1, 7 ]       },
+            { "left" : 130, "top" : 320, "frame" : 2, "linked"  : [ 5, 4, 7 ]       },
+            { "left" : 350, "top" : 320, "frame" : 0, "linked"  : [ 6, 4, 7 ]       },
+            { "left" : 240, "top" : 370, "frame" : 1, "linked"  : [ 7, 5, 6 ]       },
+            { "left" : 130, "top" : 420, "frame" : 1, "linked"  : [ 8, 5, 7 ]       }
         ],
         //////////////////////////////////  9  //////////////////////////////////
         [
@@ -398,7 +443,7 @@ function getPieceInfo(){
 }
 
 function getLevel1(){
-    maxLevel = 10;
+    maxLevel = 16;
     level = maxLevel;
 }
 
