@@ -46,6 +46,7 @@ function preload() {
     game.scale.pageAlignHorizontally = true;
     game.scale.pageAlignVertically = true;
     game.stage.backgroundColor = '#eee';
+    game.load.spritesheet('olylogo', 'img/olylogo.png', 308, 94);
     game.load.spritesheet('playBtn', 'img/play12.png', 170, 88);
     game.load.spritesheet('exitBtn', 'img/exit12.png', 150, 80);
     game.load.spritesheet('levelPrev', 'img/levels.png', 300, 300);
@@ -61,6 +62,9 @@ function preload() {
     getLevel1();
 }
 function create() {
+    olylogo = game.add.sprite(game.world.width*0.5, game.world.height*0.3, 'olylogo');
+    olylogo.anchor.set(0.5);
+ 
     playButton = game.add.button(game.world.width*0.5, game.world.height*0.6, 'playBtn', playGame, this, 0, 0, 1, 2);
     playButton.anchor.set(0.5);
     exitButton = game.add.button(game.world.width*0.5, game.world.height*0.8, 'exitBtn', exitGame, this, 0, 0, 1, 2);
@@ -103,6 +107,8 @@ function playGame(){
 
     if(typeof playButton !== 'undefined') playButton.kill();
     if(typeof exitButton !== 'undefined') exitButton.kill();
+    if(typeof olylogo !== 'undefined') olylogo.kill();
+    
     if(typeof backTwoButton !== 'undefined') backTwoButton.kill();
     if(typeof nextLevelButton !== 'undefined') nextLevelButton.kill();
  
@@ -175,6 +181,54 @@ function gameMenu(){
 //function that shows pieces on page for that levels
 function printPieces(){
     if(typeof pieceInfo[level] !== 'undefined') {
+        if (level == 0) {
+            textLevel11 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.15, 'bomicsans', "Click on piece below", 25);
+            textLevel11.anchor.setTo(0.5);
+            textLevel12 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.21, 'bomicsans', "to change its color.", 25);
+            textLevel12.anchor.setTo(0.5);
+            textLevel13 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.27, 'bomicsans', "Your goal is to make", 25);
+            textLevel13.anchor.setTo(0.5);
+            textLevel14 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.33, 'bomicsans', "it blue", 25);
+            textLevel14.anchor.setTo(0.5);
+        };
+        if (level == 1){
+            textLevel21 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.15, 'bomicsans', "Now you have two pieces.", 25);
+            textLevel21.anchor.setTo(0.5);
+            textLevel22 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.21, 'bomicsans', "Try to make them both blue.", 25);
+            textLevel22.anchor.setTo(0.5);
+            textLevel23 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.27, 'bomicsans', "Keep in mind that they", 25);
+            textLevel23.anchor.setTo(0.5);
+            textLevel24 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.33, 'bomicsans', "are connected", 25);
+            textLevel24.anchor.setTo(0.5);    
+        };
+        if (level == 2){
+            textLevel31 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.15, 'bomicsans', "Here are three pieces.", 25);
+            textLevel31.anchor.setTo(0.5);
+            textLevel32 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.21, 'bomicsans', "Try to figure out which", 25);
+            textLevel32.anchor.setTo(0.5);
+            textLevel33 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.27, 'bomicsans', "piece is changing which ones", 25);
+            textLevel33.anchor.setTo(0.5);
+            textLevel34 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.33, 'bomicsans', "and make them all blue", 25);
+            textLevel34.anchor.setTo(0.5);
+        };
+        if (level == 3){
+            textLevel41 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.15, 'bomicsans', "Things get more serious.", 25);
+            textLevel41.anchor.setTo(0.5);
+            textLevel42 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.21, 'bomicsans', "Find the way that pieces", 25);
+            textLevel42.anchor.setTo(0.5);
+            textLevel43 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.27, 'bomicsans', "are connected here and try", 25);
+            textLevel43.anchor.setTo(0.5);
+            textLevel44 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.33, 'bomicsans', "to solve this one", 25);
+            textLevel44.anchor.setTo(0.5);    
+        };
+        if (level == 4){
+            textLevel51 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.15, 'bomicsans', "From now on ", 25);
+            textLevel51.anchor.setTo(0.5);
+            textLevel52 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.21, 'bomicsans', "you are on your own.", 25);
+            textLevel52.anchor.setTo(0.5);
+            textLevel53 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.27, 'bomicsans', "Good luck!", 25);
+            textLevel53.anchor.setTo(0.5);
+        };
         levelPiecesNum = pieceInfo[level].length;
         for (var i = 0; i < levelPiecesNum; i++){
             piece[i] = game.add.button(pieceInfo[level][i].left, pieceInfo[level][i].top, 'piece', pieceClick.bind(this, i), this); 
@@ -182,12 +236,11 @@ function printPieces(){
             piece[i].anchor.set(0.5);
         }
     } else {
-        textCongrat = game.add.text(game.world.width*0.5, game.world.height*0.5, "Wow, good job, you've done it all!\nYour brain deserves some rest now.", {
-            font: "25px Arial",
-            fill: "#ff0044",
-            align: "center"
-        });
-        textCongrat.anchor.setTo(0.5);        
+        textCongrat1 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.4, 'bomicsans', "CONGRATULATIONS!", 30);
+        textCongrat1.anchor.setTo(0.5);
+        textCongrat2 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.5, 'bomicsans', "You are awesome!", 30);
+        textCongrat2.anchor.setTo(0.5);
+
         nextLevelButton.kill();
     }
 }
@@ -197,9 +250,39 @@ function removePieces(){
         for (var i = 0; i < levelPiecesNum; i++){
             piece[i].kill();
         }
+        if (level == 0) {
+            textLevel11.kill();
+            textLevel12.kill();
+            textLevel13.kill();
+            textLevel14.kill();
+        }
+        if (level == 1) {
+            textLevel21.kill();
+            textLevel22.kill();
+            textLevel23.kill();
+            textLevel24.kill();
+        }
+        if (level == 2) {
+            textLevel31.kill();
+            textLevel32.kill();
+            textLevel33.kill();
+            textLevel34.kill();
+        }
+        if (level == 3) {
+            textLevel41.kill();
+            textLevel42.kill();
+            textLevel43.kill();
+            textLevel44.kill();
+        }
+        if (level == 4) {
+            textLevel51.kill();
+            textLevel52.kill();
+            textLevel53.kill();
+        }
     } else {
         level--;
         textCongrat.kill();
+
     }
 }
 function backOne(){
@@ -240,8 +323,7 @@ function isSolved(pieceNum){
         for (var i = 0; i < levelPiecesNum; i++) {
             piece[i].inputEnabled = false;
         }
-        if( (typeof pieceInfo[level+1] !== 'undefined') && (level == maxLevel
-            ) ) {
+        if( (typeof pieceInfo[level+1] !== 'undefined') && (level == maxLevel) ) {
             maxLevel = level + 1;
             setNewMaxLevel();
         }
@@ -266,31 +348,31 @@ function getPieceInfo(){
     pieceInfo = [
         //////////////////////////////////  1  //////////////////////////////////
         [
-            { "left" : 240, "top" : 300, "frame" : 1, "linked"  : [ 1 ]         },
+            { "left" : 240, "top" : 330, "frame" : 1, "linked"  : [ 1 ]         },
         ],
         //////////////////////////////////  2  //////////////////////////////////
         [
-            { "left" : 180, "top" : 300, "frame" : 1, "linked"  : [ 1 ]         },
-            { "left" : 300, "top" : 300, "frame" : 2, "linked"  : [ 1, 2 ]      }
+            { "left" : 180, "top" : 330, "frame" : 2, "linked"  : [ 1 ]         },
+            { "left" : 300, "top" : 330, "frame" : 1, "linked"  : [ 1, 2 ]      }
         ],
         //////////////////////////////////  3  //////////////////////////////////
         [
-            { "left" : 120, "top" : 280, "frame" : 1, "linked"  : [ 1, 2 ]      },
-            { "left" : 240, "top" : 280, "frame" : 2, "linked"  : [ 2 ]   },
-            { "left" : 360, "top" : 280, "frame" : 1, "linked"  : [ 3, 2 ]      }
+            { "left" : 120, "top" : 330, "frame" : 1, "linked"  : [ 1, 2 ]      },
+            { "left" : 240, "top" : 330, "frame" : 2, "linked"  : [ 2 ]   },
+            { "left" : 360, "top" : 330, "frame" : 1, "linked"  : [ 3, 2 ]      }
         ],
         //////////////////////////////////  4  //////////////////////////////////
         [
-            { "left" : 240, "top" : 240, "frame" : 0, "linked"  : [ 1, 3 ]      },
-            { "left" : 170, "top" : 360, "frame" : 1, "linked"  : [ 2, 1 ]      },
-            { "left" : 310, "top" : 360, "frame" : 2, "linked"  : [ 3, 2 ]      }
+            { "left" : 240, "top" : 320, "frame" : 0, "linked"  : [ 1, 3 ]      },
+            { "left" : 170, "top" : 440, "frame" : 1, "linked"  : [ 2, 1 ]      },
+            { "left" : 310, "top" : 440, "frame" : 2, "linked"  : [ 3, 2 ]      }
         ],
         //////////////////////////////////  5  //////////////////////////////////
         [
-            { "left" : 120, "top" : 250, "frame" : 2, "linked"  : [ 1, 2 ]      },
-            { "left" : 240, "top" : 250, "frame" : 1, "linked"  : [ 2, 1, 3 ]   },
-            { "left" : 360, "top" : 250, "frame" : 0, "linked"  : [ 3, 2 ]      },
-            { "left" : 240, "top" : 360, "frame" : 1, "linked"  : [ 4, 2 ]      }
+            { "left" : 120, "top" : 300, "frame" : 2, "linked"  : [ 1, 2 ]      },
+            { "left" : 240, "top" : 300, "frame" : 1, "linked"  : [ 2, 1, 3 ]   },
+            { "left" : 360, "top" : 300, "frame" : 0, "linked"  : [ 3, 2 ]      },
+            { "left" : 240, "top" : 400, "frame" : 1, "linked"  : [ 4, 2 ]      }
         ],
         //////////////////////////////////  6  //////////////////////////////////
         [
