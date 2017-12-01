@@ -49,7 +49,7 @@ function preload() {
     game.load.spritesheet('olylogo', 'img/olylogo.png', 308, 94);
     game.load.spritesheet('playBtn', 'img/play12.png', 170, 88);
     game.load.spritesheet('exitBtn', 'img/exit12.png', 150, 80);
-    game.load.spritesheet('levelPrev', 'img/2.png', 300, 300);
+    game.load.spritesheet('levelPrev', 'img/levels.png', 300, 300);
     game.load.spritesheet('prevBtn', 'img/left12.png', 73, 76);
     game.load.spritesheet('nextBtn', 'img/right12.png', 73, 76);
     game.load.spritesheet('startBtn', 'img/start12.png', 150, 80);
@@ -59,15 +59,15 @@ function preload() {
     game.load.spritesheet('piece', 'img/pieces.png', 70, 70);
 
     game.load.bitmapFont('bomicsans', 'font/bomicSans.png', 'font/bomicSans.fnt');
-    getLevel1();
+    getLevel();
 }
 function create() {
-    olylogo = game.add.sprite(game.world.width*0.5, game.world.height*0.3, 'olylogo');
+    olylogo = game.add.sprite(game.world.width*0.5, game.world.height*0.2, 'olylogo');
     olylogo.anchor.set(0.5);
  
-    playButton = game.add.button(game.world.width*0.5, game.world.height*0.6, 'playBtn', playGame, this, 0, 0, 1, 2);
+    playButton = game.add.button(game.world.width*0.5, game.world.height*0.7, 'playBtn', playGame, this, 0, 0, 1, 2);
     playButton.anchor.set(0.5);
-    exitButton = game.add.button(game.world.width*0.5, game.world.height*0.8, 'exitBtn', exitGame, this, 0, 0, 1, 2);
+    exitButton = game.add.button(game.world.width*0.5, game.world.height*0.9, 'exitBtn', exitGame, this, 0, 0, 1, 2);
     exitButton.anchor.set(0.5);
 }
 function update() {}
@@ -182,43 +182,43 @@ function gameMenu(){
 function printPieces(){
     if(typeof pieceInfo[level] !== 'undefined') {
         if (level == 0) {
-            textLevel11 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.15, 'bomicsans', "Click on piece below", 25);
+            textLevel11 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.15, 'bomicsans', "Meet Oly. He is sad now.", 25);
             textLevel11.anchor.setTo(0.5);
-            textLevel12 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.21, 'bomicsans', "to change its color.", 25);
+            textLevel12 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.21, 'bomicsans', "Make him happy by", 25);
             textLevel12.anchor.setTo(0.5);
-            textLevel13 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.27, 'bomicsans', "Your goal is to make", 25);
+            textLevel13 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.27, 'bomicsans', "clicking on him and ", 25);
             textLevel13.anchor.setTo(0.5);
-            textLevel14 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.33, 'bomicsans', "it blue", 25);
+            textLevel14 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.33, 'bomicsans', "changing his color to blue", 25);
             textLevel14.anchor.setTo(0.5);
         };
         if (level == 1){
-            textLevel21 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.15, 'bomicsans', "Now you have two pieces.", 25);
+            textLevel21 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.15, 'bomicsans', "Now you have two Olys.", 25);
             textLevel21.anchor.setTo(0.5);
-            textLevel22 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.21, 'bomicsans', "Try to make them both blue.", 25);
+            textLevel22 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.21, 'bomicsans', "Find out which one can", 25);
             textLevel22.anchor.setTo(0.5);
-            textLevel23 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.27, 'bomicsans', "Keep in mind that they", 25);
+            textLevel23 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.27, 'bomicsans', "change another one and", 25);
             textLevel23.anchor.setTo(0.5);
-            textLevel24 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.33, 'bomicsans', "are connected", 25);
+            textLevel24 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.33, 'bomicsans', "make them both happy", 25);
             textLevel24.anchor.setTo(0.5);    
         };
         if (level == 2){
-            textLevel31 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.15, 'bomicsans', "Here are three pieces.", 25);
+            textLevel31 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.15, 'bomicsans', "Here are more Olys.", 25);
             textLevel31.anchor.setTo(0.5);
-            textLevel32 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.21, 'bomicsans', "Try to figure out which", 25);
+            textLevel32 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.21, 'bomicsans', "Again, they are connected.", 25);
             textLevel32.anchor.setTo(0.5);
-            textLevel33 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.27, 'bomicsans', "piece is changing which ones", 25);
+            textLevel33 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.27, 'bomicsans', "You need to understand how", 25);
             textLevel33.anchor.setTo(0.5);
-            textLevel34 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.33, 'bomicsans', "and make them all blue", 25);
+            textLevel34 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.33, 'bomicsans', "and to make them all smile", 25);
             textLevel34.anchor.setTo(0.5);
         };
         if (level == 3){
-            textLevel41 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.15, 'bomicsans', "Things get more serious.", 25);
+            textLevel41 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.15, 'bomicsans', "Olys are comming in", 25);
             textLevel41.anchor.setTo(0.5);
-            textLevel42 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.21, 'bomicsans', "Find the way that pieces", 25);
+            textLevel42 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.21, 'bomicsans', "more complex patterns.", 25);
             textLevel42.anchor.setTo(0.5);
-            textLevel43 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.27, 'bomicsans', "are connected here and try", 25);
+            textLevel43 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.27, 'bomicsans', "Find who changes whom", 25);
             textLevel43.anchor.setTo(0.5);
-            textLevel44 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.33, 'bomicsans', "to solve this one", 25);
+            textLevel44 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.33, 'bomicsans', "and cheer them all up", 25);
             textLevel44.anchor.setTo(0.5);    
         };
         if (level == 4){
@@ -226,8 +226,10 @@ function printPieces(){
             textLevel51.anchor.setTo(0.5);
             textLevel52 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.21, 'bomicsans', "you are on your own.", 25);
             textLevel52.anchor.setTo(0.5);
-            textLevel53 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.27, 'bomicsans', "Good luck!", 25);
+            textLevel53 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.27, 'bomicsans', "Let's put smiles", 25);
             textLevel53.anchor.setTo(0.5);
+            textLevel54 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.33, 'bomicsans', "on those faces :)", 25);
+            textLevel54.anchor.setTo(0.5);
         };
         levelPiecesNum = pieceInfo[level].length;
         for (var i = 0; i < levelPiecesNum; i++){
@@ -238,8 +240,10 @@ function printPieces(){
     } else {
         textCongrat1 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.4, 'bomicsans', "CONGRATULATIONS!", 30);
         textCongrat1.anchor.setTo(0.5);
-        textCongrat2 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.5, 'bomicsans', "You are awesome!", 30);
+        textCongrat2 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.5, 'bomicsans', "You are really", 30);
         textCongrat2.anchor.setTo(0.5);
+        textCongrat3 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.6, 'bomicsans', "AWESOME!!!", 30);
+        textCongrat3.anchor.setTo(0.5);
 
         nextLevelButton.kill();
     }
@@ -278,10 +282,13 @@ function removePieces(){
             textLevel51.kill();
             textLevel52.kill();
             textLevel53.kill();
+            textLevel54.kill();
         }
     } else {
         level--;
-        textCongrat.kill();
+        textCongrat1.kill();
+        textCongrat2.kill();
+        textCongrat3.kill();
 
     }
 }
@@ -293,6 +300,7 @@ function backOne(){
     textLevel.kill();
     startButton.kill();
     backOneButton.kill();
+    olylogo.revive();
     playButton.revive();
     exitButton.revive();
 }
@@ -348,18 +356,18 @@ function getPieceInfo(){
     pieceInfo = [
         //////////////////////////////////  1  //////////////////////////////////
         [
-            { "left" : 240, "top" : 330, "frame" : 1, "linked"  : [ 1 ]         },
+            { "left" : 240, "top" : 370, "frame" : 1, "linked"  : [ 1 ]         },
         ],
         //////////////////////////////////  2  //////////////////////////////////
         [
-            { "left" : 180, "top" : 330, "frame" : 2, "linked"  : [ 1 ]         },
-            { "left" : 300, "top" : 330, "frame" : 1, "linked"  : [ 1, 2 ]      }
+            { "left" : 180, "top" : 370, "frame" : 2, "linked"  : [ 1 ]         },
+            { "left" : 300, "top" : 370, "frame" : 1, "linked"  : [ 1, 2 ]      }
         ],
         //////////////////////////////////  3  //////////////////////////////////
         [
-            { "left" : 120, "top" : 330, "frame" : 1, "linked"  : [ 1, 2 ]      },
-            { "left" : 240, "top" : 330, "frame" : 2, "linked"  : [ 2 ]   },
-            { "left" : 360, "top" : 330, "frame" : 1, "linked"  : [ 3, 2 ]      }
+            { "left" : 120, "top" : 370, "frame" : 1, "linked"  : [ 1, 2 ]      },
+            { "left" : 240, "top" : 370, "frame" : 2, "linked"  : [ 2 ]   },
+            { "left" : 360, "top" : 370, "frame" : 1, "linked"  : [ 3, 2 ]      }
         ],
         //////////////////////////////////  4  //////////////////////////////////
         [
@@ -369,10 +377,10 @@ function getPieceInfo(){
         ],
         //////////////////////////////////  5  //////////////////////////////////
         [
-            { "left" : 120, "top" : 300, "frame" : 2, "linked"  : [ 1, 2 ]      },
-            { "left" : 240, "top" : 300, "frame" : 1, "linked"  : [ 2, 1, 3 ]   },
-            { "left" : 360, "top" : 300, "frame" : 0, "linked"  : [ 3, 2 ]      },
-            { "left" : 240, "top" : 400, "frame" : 1, "linked"  : [ 4, 2 ]      }
+            { "left" : 120, "top" : 350, "frame" : 2, "linked"  : [ 1, 2 ]      },
+            { "left" : 240, "top" : 350, "frame" : 1, "linked"  : [ 2, 1, 3 ]   },
+            { "left" : 360, "top" : 350, "frame" : 0, "linked"  : [ 3, 2 ]      },
+            { "left" : 240, "top" : 450, "frame" : 1, "linked"  : [ 4, 2 ]      }
         ],
         //////////////////////////////////  6  //////////////////////////////////
         [
@@ -848,7 +856,7 @@ function getPieceInfo(){
     ]
 }
 
-function getLevel1(){
-    maxLevel = 43;
-    level = maxLevel;
-}
+// function getLevel1(){
+//     maxLevel = 44;
+//     level = maxLevel;
+// }
