@@ -28,7 +28,7 @@ function onDeviceReady() {
 
 // Populate the database 
 function populateDB(tx) {
-     // tx.executeSql('DROP TABLE IF EXISTS olyclick');
+     tx.executeSql('DROP TABLE IF EXISTS olyclick');
      tx.executeSql('CREATE TABLE IF NOT EXISTS olyclick (id unique DEFAULT 1, level DEFAULT 0)');
 }
 function errorCB(err) {
@@ -856,7 +856,7 @@ function getPieceInfo(){
     ]
 }
 
-// function getLevel1(){
-//     maxLevel = 44;
-//     level = maxLevel;
-// }
+function getLevel1(){
+    maxLevel = 44;
+    level = maxLevel;
+}
