@@ -31,7 +31,7 @@ function populateDB(tx) {
      tx.executeSql('DROP TABLE IF EXISTS olyclick;');
     alert("Prviiiii");
 
-     tx.executeSql('CREATE TABLE IF NOT EXISTS olyclick (id DEFAULT 1, level DEFAULT 0);');
+     tx.executeSql('CREATE TABLE IF NOT EXISTS olyclick (id unique DEFAULT 1, level DEFAULT 0);');
     alert("Drugiiiiii");
 }
 function errorCB(err) {
@@ -85,11 +85,15 @@ function getLevel(){
     db.transaction(queryDB, errorCB);
 }
 function queryDB(tx){
+    alert("TrecI!!!");
+
     tx.executeSql('SELECT * FROM olyclick', [], querySuccess, errorCB);
 }
 
 function querySuccess(tx, results) {
+    alert("cetvrti");
     var lev = results.rows.item(0).level;
+    alert("peti"+lev);
     maxLevel = lev;
     level = maxLevel;
 }
