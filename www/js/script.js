@@ -29,8 +29,8 @@ function onDeviceReady() {
 // Populate the database 
 function populateDB(tx) {
      tx.executeSql('DROP TABLE IF EXISTS olyclick;');
-     tx.executeSql('CREATE TABLE IF NOT EXISTS olyclick (id INT primary key, level REAL);');
-     tx.executeSql('INSERT INTO olyclick (id, level) VALUES (1, 0);');
+     tx.executeSql('CREATE TABLE IF NOT EXISTS olyclick (id INT default 1, level REAL default 0);');
+     // tx.executeSql('INSERT INTO olyclick (id, level) VALUES (1, 0);');
 }
 function errorCB(err) {
     alert("Error processing SQL: "+err.message);
