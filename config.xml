@@ -7,6 +7,13 @@
     <author email="pbomestar@gmail.com" href="http://phonegap.com">
         Boma car
     </author>
+    <platform name="android">
+      <icon src="img/icon/icon_ld.png" density="ldpi"/>
+      <icon src="img/icon/icon_md.png" density="mdpi"/>
+      <icon src="img/icon/icon_hd.png" density="hdpi"/>
+      <icon src="img/icon/icon_x.png" density="xhdpi"/>
+      <icon src="img/icon/icon_xx.png" density="xxhdpi"/>
+    </platform>
     <content src="index.html" />
     <access origin="*" />
 </widget>
