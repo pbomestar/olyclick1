@@ -29,10 +29,8 @@ function onDeviceReady() {
 // Populate the database 
 function populateDB(tx) {
      tx.executeSql('DROP TABLE IF EXISTS olyclick;');
-    alert("Prviiiii");
-
-     tx.executeSql('CREATE TABLE IF NOT EXISTS olyclick (id unique DEFAULT 1, level DEFAULT 0);');
-    alert("Drugiiiiii");
+     tx.executeSql('CREATE TABLE IF NOT EXISTS olyclick (id INT primary key, level REAL);');
+     tx.executeSql('INSERT INTO olyclick (id, level) VALUES (1, 0);');
 }
 function errorCB(err) {
     alert("Error processing SQL: "+err.message);
@@ -85,15 +83,11 @@ function getLevel(){
     db.transaction(queryDB, errorCB);
 }
 function queryDB(tx){
-    alert("TrecI!!!");
-
     tx.executeSql('SELECT * FROM olyclick', [], querySuccess, errorCB);
 }
 
 function querySuccess(tx, results) {
-    alert("cetvrti");
     var lev = results.rows.item(0).level;
-    alert("peti"+lev);
     maxLevel = lev;
     level = maxLevel;
 }
@@ -863,7 +857,7 @@ function getPieceInfo(){
     ]
 }
 
-function getLevel1(){
-    maxLevel = 44;
-    level = maxLevel;
-}
+// function getLevel1(){
+//     maxLevel = 44;
+//     level = maxLevel;
+// }
