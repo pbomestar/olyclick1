@@ -89,6 +89,11 @@ function queryDB(tx){
 function querySuccess(tx, results) {
     var lev;
     if (results.rows.length == 0){
+        var db = window.openDatabase("olyclick", "1.0", "Olyclick db", 1000);
+        db.transaction(popul1DB);
+        function popul1DB(tx){
+            tx.executeSql('INSERT INTO olyclick (id, level) VALUES (1, 0);');
+        }
         lev = 0;
         maxLevel = lev;
         level = maxLevel;
