@@ -29,7 +29,7 @@ function onDeviceReady() {
 // Populate the database 
 function populateDB(tx) {
      tx.executeSql('DROP TABLE IF EXISTS olyclick;');
-     tx.executeSql('CREATE TABLE IF NOT EXISTS olyclick (id INT default 1, level REAL default 0);');
+     tx.executeSql('CREATE TABLE IF NOT EXISTS olyclick (id INT primary key, level REAL);');
      // tx.executeSql('INSERT INTO olyclick (id, level) VALUES (1, 0);');
 }
 function errorCB(err) {
@@ -80,16 +80,23 @@ function update() {}
 
 function getLevel(){
     var db = window.openDatabase("olyclick", "1.0", "Olyclick db", 1000);
-    db.transaction(queryDB, errorCB);
+    db.transaction(queryDB);
 }
 function queryDB(tx){
-    tx.executeSql('SELECT * FROM olyclick', [], querySuccess, errorCB);
+    tx.executeSql('SELECT * FROM olyclick', [], querySuccess);
 }
 
 function querySuccess(tx, results) {
-    var lev = results.rows.item(0).level;
-    maxLevel = lev;
-    level = maxLevel;
+    var lev;
+    if (results.rows.length == 0){
+        lev = 0;
+        maxLevel = lev;
+        level = maxLevel;
+    } else {
+        lev = results.rows.item(0).level;
+        maxLevel = lev;
+        level = maxLevel;
+    }
 }
 // Set new maxlevel that player achieved
 function setNewMaxLevel(){
