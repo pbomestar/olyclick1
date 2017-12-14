@@ -29,7 +29,8 @@ function onDeviceReady() {
         adSize:               admob.AD_SIZE.SMART_BANNER,
         bannerAtTop:          true,
         isTesting:            true,
-        autoShowBanner:       true
+        autoShowBanner:       true,
+        overlap:              true
     });
     admob.createBannerView();
     game = new Phaser.Game(480, 640, Phaser.CANVAS, null, {preload: preload, create: create, update: update}, true);
