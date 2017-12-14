@@ -5,8 +5,9 @@
         Olyclick - an awesome game.
     </description>
     <author email="pbomestar@gmail.com" href="http://phonegap.com">
-        Boma car
+        BomeStar
     </author>
+    <gap:plugin name="phonegap-admob" source="npm"/>
     <platform name="android">
       <icon src="img/icon/icon_ld.png" density="ldpi"/>
       <icon src="img/icon/icon_md.png" density="mdpi"/>

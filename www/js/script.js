@@ -12,14 +12,29 @@ getPieceInfo();
 /////////////////////////////////////////////
 /////// When device is ready
 /////////////////////////////////////////////
-document.addEventListener("deviceready", onDeviceReady, false);
+document.addEventListener("deviceready", onDeviceReady, false); 
 
 
 // Device is ready
 function onDeviceReady() {
+
+    document.removeEventListener('deviceready', onDeviceReady, false);
+
     var db = window.openDatabase("olyclick", "1.0", "Olyclick db", 1000);
     db.transaction(populateDB, errorCB, successCB);
+
+    // Set AdMobAds options:
+    admob.setOptions({
+        publisherId:          "ca-app-pub-7640889923036942/3789305112",  // Required
+        adSize:               admob.AD_SIZE.SMART_BANNER,
+        bannerAtTop:          true,
+        isTesting:            true,
+        autoShowBanner:       true
+    });
+    admob.createBannerView();
     game = new Phaser.Game(480, 640, Phaser.CANVAS, null, {preload: preload, create: create, update: update}, true);
+
+
 } 
 
 ////////////////////////////////////////////////////////////////////////
@@ -33,7 +48,7 @@ function populateDB(tx) {
      // tx.executeSql('INSERT INTO olyclick (id, level) VALUES (1, 0);');
 }
 function errorCB(err) {
-    alert("Error processing SQL: "+err.message);
+    // alert("Error processing SQL: "+err.message);
 }
 function successCB() {}
 
@@ -63,7 +78,7 @@ function preload() {
     getLevel();
 }
 function create() {
-    olylogo = game.add.sprite(game.world.width*0.5, game.world.height*0.2, 'olylogo');
+    olylogo = game.add.sprite(game.world.width*0.5, game.world.height*0.3, 'olylogo');
     olylogo.anchor.set(0.5);
  
     playButton = game.add.button(game.world.width*0.5, game.world.height*0.7, 'playBtn', playGame, this, 0, 0, 1, 2);
@@ -339,7 +354,7 @@ function isSolved(pieceNum){
         if(piece[i].frame != 0) solved = 0;
     }
     if (solved == 1){
-        console.log("Solved");
+        // console.log("Solved");
                 
         for (var i = 0; i < levelPiecesNum; i++) {
             piece[i].inputEnabled = false;
@@ -350,7 +365,7 @@ function isSolved(pieceNum){
         }
         toggleNextBtn()
     } else {
-        console.log("NOT solved");
+        // console.log("NOT solved");
     }
 }
 function nextLevel(){
