@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 
-var game, playButton, exitButton, levelPrev, level, prevButton, nextButton, textChoose, textLevel, textCongrat, startButton, backOneButton, level, maxLevel;
+var game, playButton, exitButton, levelPrev, level, prevButton, nextButton, textChoose, textLevel, textCongrat, startButton, backOneButton, backTwoButton, level, maxLevel;
 var piece = [];
 var pieceInfo = [];
 
@@ -28,11 +28,14 @@ function onDeviceReady() {
         publisherId:          "ca-app-pub-7640889923036942/3789305112",  // Required
         adSize:               admob.AD_SIZE.SMART_BANNER,
         bannerAtTop:          true,
-        isTesting:            true,
         autoShowBanner:       true,
         overlap:              true
     });
+    // For testing purposes - check if ads are working
+    // isTesting:            true
+
     admob.createBannerView();
+
     game = new Phaser.Game(480, 640, Phaser.CANVAS, null, {preload: preload, create: create, update: update}, true);
 
 
@@ -63,7 +66,7 @@ function preload() {
     game.scale.pageAlignHorizontally = true;
     game.scale.pageAlignVertically = true;
     game.stage.backgroundColor = '#eee';
-    game.load.spritesheet('olylogo', 'img/olylogo.png', 308, 94);
+    game.load.spritesheet('olylogo', 'img/olylogo.png', 308, 210);
     game.load.spritesheet('playBtn', 'img/play12.png', 170, 88);
     game.load.spritesheet('exitBtn', 'img/exit12.png', 150, 80);
     game.load.spritesheet('levelPrev', 'img/levels.png', 300, 300);
@@ -145,16 +148,16 @@ function playGame(){
     levelImg.anchor.set(0.5);
     levelImg.frame = level;
     
-    prevButton = game.add.button(game.world.width*0.3, game.world.height-200, 'prevBtn', prevGame, this, 0, 0, 1, 2);
+    prevButton = game.add.button(game.world.width*0.25, game.world.height-200, 'prevBtn', prevGame, this, 0, 0, 1, 2);
     prevButton.anchor.set(0.5);
-    nextButton = game.add.button(game.world.width*0.7, game.world.height-200, 'nextBtn', nextGame, this, 0, 0, 1, 2);
+    nextButton = game.add.button(game.world.width*0.75, game.world.height-200, 'nextBtn', nextGame, this, 0, 0, 1, 2);
     nextButton.anchor.set(0.5);
 
     // Text
     textChoose = game.add.bitmapText(game.world.width*0.5, game.world.height*0.1, 'bomicsans', 'Choose a Level', 35);
     textChoose.anchor.setTo(0.5);
 
-    textLevel = game.add.bitmapText(game.world.width*0.5, game.world.height-200, 'bomicsans', level+1, 40);
+    textLevel = game.add.bitmapText(game.world.width*0.5, game.world.height-197, 'bomicsans', (level+1) + "/44" , 38);
     // textLevel.setText(level+1);
     textLevel.anchor.setTo(0.5);
 
@@ -167,13 +170,13 @@ function prevGame(){
     level--;
     if (level < 0) level = 0;
     levelImg.frame = level;
-    textLevel.setText(level+1);
+    textLevel.setText((level+1) + "/44");
 }
 function nextGame(){
     level++;
     if (level > maxLevel) level = maxLevel; 
     levelImg.frame = level;
-    textLevel.setText(level+1);
+    textLevel.setText((level+1) + "/44");
 }
 function startGame(){
     levelImg.kill();
@@ -213,11 +216,11 @@ function printPieces(){
         if (level == 0) {
             textLevel11 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.15, 'bomicsans', "Meet Oly. He is sad now.", 25);
             textLevel11.anchor.setTo(0.5);
-            textLevel12 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.21, 'bomicsans', "Make him happy by", 25);
+            textLevel12 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.21, 'bomicsans', "Make him happy - tap", 25);
             textLevel12.anchor.setTo(0.5);
-            textLevel13 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.27, 'bomicsans', "clicking on him and ", 25);
+            textLevel13 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.27, 'bomicsans', "him and try to change", 25);
             textLevel13.anchor.setTo(0.5);
-            textLevel14 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.33, 'bomicsans', "changing his color to blue", 25);
+            textLevel14 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.33, 'bomicsans', "his color to blue", 25);
             textLevel14.anchor.setTo(0.5);
         };
         if (level == 1){
@@ -267,15 +270,16 @@ function printPieces(){
             piece[i].anchor.set(0.5);
         }
     } else {
-        textCongrat1 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.4, 'bomicsans', "CONGRATULATIONS!", 30);
+        textCongrat1 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.3, 'bomicsans', "CONGRATULATIONS!", 30);
         textCongrat1.anchor.setTo(0.5);
-        textCongrat2 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.5, 'bomicsans', "You are really", 30);
+        textCongrat2 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.45, 'bomicsans', "You are AWESOME!!!", 30);
         textCongrat2.anchor.setTo(0.5);
-        textCongrat3 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.6, 'bomicsans', "AWESOME!!!", 30);
+        textCongrat3 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.7, 'bomicsans', "Your key: " + getCode(), 23);
         textCongrat3.anchor.setTo(0.5);
-
-        nextLevelButton.kill();
     }
+}
+function getCode(){
+    return Math.round(Math.random()*900+99)*6907 + 7*7919;
 }
 function removePieces(){
     if(typeof pieceInfo[level] !== 'undefined') {
@@ -314,7 +318,7 @@ function removePieces(){
             textLevel54.kill();
         }
     } else {
-        level--;
+        level--;                    // because you can go to last screen only by clicking on next button which increases level by 1
         textCongrat1.kill();
         textCongrat2.kill();
         textCongrat3.kill();
@@ -382,10 +386,11 @@ function exitGame(){
 
 
 function getPieceInfo(){
+
     pieceInfo = [
         //////////////////////////////////  1  //////////////////////////////////
         [
-            { "left" : 240, "top" : 370, "frame" : 1, "linked"  : [ 1 ]         },
+            { "left" : 240, "top" : 370, "frame" : 1, "linked"  : [ 1 ]         }
         ],
         //////////////////////////////////  2  //////////////////////////////////
         [
@@ -881,7 +886,6 @@ function getPieceInfo(){
             { "left" : 240, "top" : 460, "frame" : 0, "linked"  : [ 18, 14, 15, 17, 19 ]            },
             { "left" : 330, "top" : 460, "frame" : 1, "linked"  : [ 19, 15, 16, 18 ]                }
         ]
-
     ]
 }
 
