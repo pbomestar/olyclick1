@@ -79,7 +79,7 @@ function preload() {
     game.load.spritesheet('piece', 'img/pieces.png', 70, 70);
 
     game.load.bitmapFont('bomicsans', 'font/bomicSans.png', 'font/bomicSans.fnt');
-    getLevel1();
+    getLevel();
 }
 function create() {
     olylogo = game.add.sprite(game.world.width*0.5, game.world.height*0.3, 'olylogo');
