@@ -79,7 +79,7 @@ function preload() {
     game.load.spritesheet('piece', 'img/pieces.png', 70, 70);
 
     game.load.bitmapFont('bomicsans', 'font/bomicSans.png', 'font/bomicSans.fnt');
-    getLevel();
+    getLevel1();
 }
 function create() {
     olylogo = game.add.sprite(game.world.width*0.5, game.world.height*0.3, 'olylogo');
@@ -831,12 +831,12 @@ function getPieceInfo(){
         //////////////////////////////////  42  //////////////////////////////////
         [
             { "left" : 100, "top" : 140, "frame" : 2, "linked"  : [ 1, 2, 4, 6]             },
-            { "left" : 240, "top" : 140, "frame" : 1, "linked"  : [ 2, 1, 3, 4, 5]          },
-            { "left" : 380, "top" : 140, "frame" : 0, "linked"  : [ 3, 2, 5, 8 ]            },
-            { "left" : 170, "top" : 210, "frame" : 1, "linked"  : [ 4, 1, 2, 6, 7 ]         },
-            { "left" : 310, "top" : 210, "frame" : 1, "linked"  : [ 5, 2, 3, 7, 8 ]         },
+            { "left" : 240, "top" : 140, "frame" : 2, "linked"  : [ 2, 1, 3, 4, 5]          },
+            { "left" : 380, "top" : 140, "frame" : 1, "linked"  : [ 3, 2, 5, 8 ]            },
+            { "left" : 170, "top" : 210, "frame" : 0, "linked"  : [ 4, 1, 2, 6, 7 ]         },
+            { "left" : 310, "top" : 210, "frame" : 2, "linked"  : [ 5, 2, 3, 7, 8 ]         },
             { "left" : 100, "top" : 280, "frame" : 1, "linked"  : [ 6, 1, 4, 9, 11 ]        },
-            { "left" : 240, "top" : 280, "frame" : 2, "linked"  : [ 7, 4, 5, 9, 10 ]        },
+            { "left" : 240, "top" : 280, "frame" : 0, "linked"  : [ 7, 4, 5, 9, 10 ]        },
             { "left" : 380, "top" : 280, "frame" : 1, "linked"  : [ 8, 3, 5, 10, 13]        },
             { "left" : 170, "top" : 350, "frame" : 2, "linked"  : [ 9, 6, 7, 11, 12 ]       },
             { "left" : 310, "top" : 350, "frame" : 0, "linked"  : [ 10, 7, 8, 12, 13 ]      },
@@ -890,6 +890,6 @@ function getPieceInfo(){
 }
 
 // function getLevel1(){
-//     maxLevel = 44;
+//     maxLevel = 42;
 //     level = maxLevel;
 // }
