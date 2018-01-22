@@ -23,18 +23,18 @@ function onDeviceReady() {
     var db = window.openDatabase("olyclick", "1.0", "Olyclick db", 1000);
     db.transaction(populateDB, errorCB, successCB);
 
-    // Set AdMobAds options:
-    admob.setOptions({
-        publisherId:          "ca-app-pub-7640889923036942/3789305112",  // Required
-        adSize:               admob.AD_SIZE.SMART_BANNER,
-        bannerAtTop:          true,
-        autoShowBanner:       true,
-        overlap:              true
-    });
-    // For testing purposes - check if ads are working
-    // isTesting:            true
+    // // Set AdMobAds options:
+    // admob.setOptions({
+    //     publisherId:          "ca-app-pub-7640889923036942/3789305112",  // Required
+    //     adSize:               admob.AD_SIZE.SMART_BANNER,
+    //     bannerAtTop:          true,
+    //     autoShowBanner:       true,
+    //     overlap:              true
+    // });
+    // // For testing purposes - check if ads are working
+    // // isTesting:            true
 
-    admob.createBannerView();
+    // admob.createBannerView();
 
     game = new Phaser.Game(480, 640, Phaser.CANVAS, null, {preload: preload, create: create, update: update}, true);
 
@@ -188,6 +188,7 @@ function startGame(){
     backOneButton.kill();
     
     printPieces();
+    showLevel();
 
     nextLevelButton = game.add.button(3/5*(game.world.width-300)+150+75, game.world.height-40, 'nextLevelBtn', nextLevel, this, 0, 0, 1, 2);
     nextLevelButton.anchor.set(0.5);
@@ -208,6 +209,7 @@ function toggleNextBtn(){
 }
 function gameMenu(){
     removePieces();
+    showLvl.kill();
     playGame();
 }
 //function that shows pieces on page for that levels
@@ -274,9 +276,14 @@ function printPieces(){
         textCongrat1.anchor.setTo(0.5);
         textCongrat2 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.45, 'bomicsans', "You are AWESOME!!!", 30);
         textCongrat2.anchor.setTo(0.5);
-        textCongrat3 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.7, 'bomicsans', "Your key: " + getCode(), 23);
-        textCongrat3.anchor.setTo(0.5);
+        // textCongrat3 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.7, 'bomicsans', "Your key: " + getCode(), 23);
+        // textCongrat3.anchor.setTo(0.5);
     }
+}
+// show the current level
+function showLevel(){
+    showLvl = game.add.bitmapText(game.world.width*0.5, game.world.height*0.07, 'bomicsans', "Level " + (level+1), 35);
+    showLvl.anchor.setTo(0.5);
 }
 function getCode(){
     return Math.round(Math.random()*900+99)*6907 + 7*7919;
@@ -321,7 +328,7 @@ function removePieces(){
         level--;                    // because you can go to last screen only by clicking on next button which increases level by 1
         textCongrat1.kill();
         textCongrat2.kill();
-        textCongrat3.kill();
+        // textCongrat3.kill();
 
     }
 }
@@ -375,8 +382,10 @@ function isSolved(pieceNum){
 }
 function nextLevel(){
     removePieces(); 
+    showLvl.kill();
     level++; 
     printPieces();
+    if (level < 44) showLevel();
     toggleNextBtn();
 }
 

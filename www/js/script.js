@@ -7,6 +7,10 @@ var game, playButton, exitButton, levelPrev, level, prevButton, nextButton, text
 var piece = [];
 var pieceInfo = [];
 
+var isPendingInterstitial = false;
+var isAutoshowInterstitial = false;
+
+
 getPieceInfo();
 
 /////////////////////////////////////////////
@@ -26,20 +30,50 @@ function onDeviceReady() {
     // Set AdMobAds options:
     admob.setOptions({
         publisherId:          "ca-app-pub-7640889923036942/3789305112",  // Required
+        interstitialAdId:     "ca-app-pub-7640889923036942/4603400126",
         adSize:               admob.AD_SIZE.SMART_BANNER,
         bannerAtTop:          true,
         autoShowBanner:       true,
-        overlap:              true
+        overlap:              true,
+        isTesting:            true
     });
     // For testing purposes - check if ads are working
     // isTesting:            true
 
     admob.createBannerView();
+    prepareIntestitialAd();
 
     game = new Phaser.Game(480, 640, Phaser.CANVAS, null, {preload: preload, create: create, update: update}, true);
 
-
 } 
+
+function prepareInterstitialAd() {
+    if (!isPendingInterstitial) { // We won't ask for another interstitial ad if we already have an available one
+        admob.requestInterstitialAd({
+            autoShowInterstitial: isAutoshowInterstitial
+        });
+    }
+}
+function onAdLoadedEvent(e) {
+    if (e.adType === admob.AD_TYPE.INTERSTITIAL && !isAutoshowInterstitial) {
+        isPendingInterstitial = true;
+    }
+}
+function showInterstitialAd() {
+    if (isPendingInterstitial) {
+        admob.showInterstitialAd(function () {
+                isPendingInterstitial = false;
+                isAutoshowInterstitial = false;
+                prepareInterstitialAd();
+        });
+    } else {
+        // The interstitial is not prepared, so in this case, we want to show the interstitial as soon as possible
+        isAutoshowInterstitial = true;
+        admob.requestInterstitialAd({
+            autoShowInterstitial: isAutoshowInterstitial
+        });
+    }
+}
 
 ////////////////////////////////////////////////////////////////////////
 ////////////   DB Section
@@ -188,6 +222,7 @@ function startGame(){
     backOneButton.kill();
     
     printPieces();
+    showLevel();
 
     nextLevelButton = game.add.button(3/5*(game.world.width-300)+150+75, game.world.height-40, 'nextLevelBtn', nextLevel, this, 0, 0, 1, 2);
     nextLevelButton.anchor.set(0.5);
@@ -195,6 +230,8 @@ function startGame(){
 
     backTwoButton = game.add.button(2/5*(game.world.width-300)+75, game.world.height-40, 'backTwoBtn', gameMenu, this, 0, 0, 1, 2);
     backTwoButton.anchor.set(0.5);
+
+    showInterstitialAd();
 }
 
 function toggleNextBtn(){
@@ -208,6 +245,7 @@ function toggleNextBtn(){
 }
 function gameMenu(){
     removePieces();
+    showLvl.kill();
     playGame();
 }
 //function that shows pieces on page for that levels
@@ -274,9 +312,14 @@ function printPieces(){
         textCongrat1.anchor.setTo(0.5);
         textCongrat2 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.45, 'bomicsans', "You are AWESOME!!!", 30);
         textCongrat2.anchor.setTo(0.5);
-        textCongrat3 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.7, 'bomicsans', "Your key: " + getCode(), 23);
-        textCongrat3.anchor.setTo(0.5);
+        // textCongrat3 = game.add.bitmapText(game.world.width*0.5, game.world.height*0.7, 'bomicsans', "Your key: " + getCode(), 23);
+        // textCongrat3.anchor.setTo(0.5);
     }
+}
+// show the current level
+function showLevel(){
+    showLvl = game.add.bitmapText(game.world.width*0.5, game.world.height*0.07, 'bomicsans', "Level " + (level+1), 35);
+    showLvl.anchor.setTo(0.5);
 }
 function getCode(){
     return Math.round(Math.random()*900+99)*6907 + 7*7919;
@@ -321,7 +364,7 @@ function removePieces(){
         level--;                    // because you can go to last screen only by clicking on next button which increases level by 1
         textCongrat1.kill();
         textCongrat2.kill();
-        textCongrat3.kill();
+        // textCongrat3.kill();
 
     }
 }
@@ -375,8 +418,10 @@ function isSolved(pieceNum){
 }
 function nextLevel(){
     removePieces(); 
+    showLvl.kill();
     level++; 
     printPieces();
+    if (level < 44) showLevel();
     toggleNextBtn();
 }
 
