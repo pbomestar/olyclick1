@@ -39,6 +39,9 @@ function onDeviceReady() {
     });
     // For testing purposes - check if ads are working
     // isTesting:            true
+
+    document.addEventListener(admob.events.onAdLoaded, onAdLoadedEvent);
+    
     admob.createBannerView();
     prepareInterstitialAd();
 
