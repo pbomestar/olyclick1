@@ -39,9 +39,8 @@ function onDeviceReady() {
     });
     // For testing purposes - check if ads are working
     // isTesting:            true
-
     admob.createBannerView();
-    prepareIntestitialAd();
+    prepareInterstitialAd();
 
     game = new Phaser.Game(480, 640, Phaser.CANVAS, null, {preload: preload, create: create, update: update}, true);
 
