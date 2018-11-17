@@ -89,7 +89,7 @@ function onDeviceReady() {
 
 // Populate the database 
 function populateDB(tx) {
-     tx.executeSql('DROP TABLE IF EXISTS olyclick;');
+     // tx.executeSql('DROP TABLE IF EXISTS olyclick;');
      tx.executeSql('CREATE TABLE IF NOT EXISTS olyclick (id INT primary key, levelEasy REAL, levelHard REAL, isEasyDone REAL);');
      // tx.executeSql('INSERT INTO olyclick (id, level) VALUES (1, 0);');
 }
@@ -212,8 +212,12 @@ function queryDB(tx){
 
 function querySuccess(tx, results) {
     var levEasy, levHard;
+
+ // alert('results is empty: '+ results.rows.item(0).levelEasy);
+ // alert('results.rows length '+ results.rows.length + 'object: ' + JSON.stringify(results));
+ 
+
     if (results.rows.length == 0){
-        alert('empty database');
         var db = window.openDatabase("olyclick", "1.0", "Olyclick db", 1000);
         db.transaction(popul1DB);
         function popul1DB(tx){
@@ -228,7 +232,6 @@ function querySuccess(tx, results) {
         maxLevelHard = levHard;
         levelHard = maxLevelHard;
     } else {
-        alert('else');
         levEasy = results.rows.item(0).levelEasy;
         levHard = results.rows.item(0).levelHard;
         isEasyDone = results.rows.item(0).isEasyDone;
