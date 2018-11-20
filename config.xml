@@ -8,6 +8,10 @@
         BomeStar
     </author>
     <gap:plugin name="phonegap-admob" source="npm"/>
+
+    <preference name="android-minSdkVersion"  value="16" />
+    <preference name="android-targetSdkVersion"  value="26" />
+    
     <platform name="android">
       <icon src="img/icon/icon_ld.png" density="ldpi"/>
       <icon src="img/icon/icon_md.png" density="mdpi"/>
