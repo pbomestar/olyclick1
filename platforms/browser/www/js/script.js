@@ -265,7 +265,7 @@ function setEasyDone(){
     var db = window.openDatabase("olyclick", "1.0", "Olyclick db", 1000);
     db.transaction(writeEasyDoneDB, errorCB);
 }
-function writeEasyDoneDB(){
+function writeEasyDoneDB(tx){
     tx.executeSql('UPDATE olyclick SET isEasyDone = ' + isEasyDone + ' WHERE id = 1;');
 }
 
