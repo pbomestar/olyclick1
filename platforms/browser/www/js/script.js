@@ -225,6 +225,7 @@ function querySuccess(tx, results) {
         }
         levEasy = 0;
         levHard = 0;
+        isEasyDone = 0;
 
         maxLevelEasy = levEasy;
         levelEasy = maxLevelEasy;
