@@ -3,11 +3,13 @@
 //////////////////////////////////////////////////////////////////////
 
 
-var game, canvasWidth, easyButton, hardButton, exitButton, mode, pieceSprite, level, levelEasy, levelHard, maxLevel, maxLevelEasy, maxLevelHard, isEasyDone, levelPreview, prevButton, nextButton, textChoose, textLevel, textCongrat, startButton, backOneButton, backTwoButton;
+var game, canvasWidth, easyButton, hardButton, exitButton, soundButton, timerEvent, mode, pieceSprite, level, levelEasy, levelHard, maxLevel, maxLevelEasy, maxLevelHard, isEasyDone, levelPreview, prevButton, nextButton, textChoose, textLevel, textCongrat, startButton, backOneButton, backTwoButton;
 // mode - if 0 then Easy mode is chosen, 1 is for Hard mode.
 
-canvasWidth = 500;
+canvasWidth = 550;
 canvasHeight = 700;
+
+// var volumeIndex = 0.3;
 
 var piece = [];
 var coordEasy = [];
@@ -90,7 +92,7 @@ function onDeviceReady() {
 // Populate the database 
 function populateDB(tx) {
      // tx.executeSql('DROP TABLE IF EXISTS olyclick;');
-     tx.executeSql('CREATE TABLE IF NOT EXISTS olyclick (id INT primary key, levelEasy REAL, levelHard REAL, isEasyDone REAL);');
+     tx.executeSql('CREATE TABLE IF NOT EXISTS olyclick (id INT primary key, levelEasy REAL, levelHard REAL, isEasyDone REAL, volumeIndex REAL);');
      // tx.executeSql('INSERT INTO olyclick (id, level) VALUES (1, 0);');
 }
 function errorCB(err) {
@@ -110,21 +112,22 @@ function preload() {
     game.stage.backgroundColor = '#eee';
 
     // Load graphics
-    game.load.spritesheet('olylogo', 'img/olylogo.png', 308, 210);
-    // game.load.spritesheet('playBtn', 'img/play12.png', 170, 88);
-    game.load.spritesheet('easyBtn', 'img/easy12.png', 170, 88);
-    game.load.spritesheet('hardBtn', 'img/hard12.png', 170, 88);
-    game.load.spritesheet('exitBtn', 'img/exit12.png', 150, 80);
-    game.load.spritesheet('levelsEasy', 'img/levelsEasy.png', 300, 300);
-    game.load.spritesheet('levelsHard', 'img/levelsHard.png', 300, 300);
-    game.load.spritesheet('prevBtn', 'img/left12.png', 73, 76);
-    game.load.spritesheet('nextBtn', 'img/right12.png', 73, 76);
-    game.load.spritesheet('startBtn', 'img/start12.png', 150, 80);
-    game.load.spritesheet('backOneBtn', 'img/back12.png', 150, 80);
-    game.load.spritesheet('nextLevelBtn', 'img/next12.png', 150, 80);
-    game.load.spritesheet('backTwoBtn', 'img/back12.png', 150, 80);
-    game.load.spritesheet('pieceEasy', 'img/pieceEasy.png', 70, 70);
-    game.load.spritesheet('pieceHard', 'img/pieceHard.png', 70, 70);
+    game.load.spritesheet('olylogo',        'img/olylogo.png', 308, 210);
+    // game.load.spritesheet('playBtn',     'img/play12.png', 170, 88);
+    game.load.spritesheet('easyBtn',        'img/easy12.png', 170, 88);
+    game.load.spritesheet('hardBtn',        'img/hard12.png', 170, 88);
+    game.load.spritesheet('exitBtn',        'img/exit12.png', 150, 80);
+    game.load.spritesheet('soundBtn',       'img/soundBtn.png', 70, 70);
+    game.load.spritesheet('levelsEasy',     'img/levelsEasy.png', 300, 300);
+    game.load.spritesheet('levelsHard',     'img/levelsHard.png', 300, 300);
+    game.load.spritesheet('prevBtn',        'img/left12.png', 73, 76);
+    game.load.spritesheet('nextBtn',        'img/right12.png', 73, 76);
+    game.load.spritesheet('startBtn',       'img/start12.png', 150, 80);
+    game.load.spritesheet('backOneBtn',     'img/back12.png', 150, 80);
+    game.load.spritesheet('nextLevelBtn',   'img/next12.png', 150, 80);
+    game.load.spritesheet('backTwoBtn',     'img/back12.png', 150, 80);
+    game.load.spritesheet('pieceEasy',      'img/pieceEasy.png', 70, 70);
+    game.load.spritesheet('pieceHard',      'img/pieceHard.png', 70, 70);
 
     // Load sounds
     game.load.audio('btnClick', 'audio/btnclick.mp3');
@@ -151,9 +154,8 @@ function create() {
     exitButton = game.add.button(game.world.width*0.5, game.world.height, 'exitBtn', exitGame, this, 0, 0, 1, 2);
     exitButton.anchor.set(0.5, 1);
 
-    // not needed anymore, handling sounds on function call
-    // easyButton.events.onInputDown.add(clickSound, this);
-    // hardButton.events.onInputDown.add(clickSound, this);
+    soundButton = game.add.button(game.world.width*0.8, game.world.height*0.99, 'soundBtn', changeVolume, this);
+    soundButton.anchor.set(0.5, 1);
 
     // Defining audio objects
     goFwd = game.add.audio('goFwd');
@@ -167,35 +169,41 @@ function create() {
 }
 // Audio functions
 function goFwdSound(){
-    goFwd.volume = 0.4;
+    goFwd.volume = 0.4 * volumeIndex;
     goFwd.play();    
 }
 function goBackSound(){
-    goBack.volume = 0.4;
+    goBack.volume = 0.4 * volumeIndex;
     goBack.play();    
 }
 function setLevelSound(){
-    setLevel.volume = 0.25;
+    setLevel.volume = 0.25 * volumeIndex;
     setLevel.play();    
 }
 function clickPieceSound(){
-    clickPiece.volume = 0.4;
+    clickPiece.volume = 0.4 * volumeIndex;
     clickPiece.play();    
 }
 function levelDoneSound(){
-    levelDone.volume = 0.5;
+    levelDone.volume = 0.5 * volumeIndex;
     levelDone.play();    
 }
 function congratsEazySound(){
-    congratsEazy.volume = 1;
+    congratsEazy.volume = 1 * volumeIndex;
     congratsEazy.play();    
 }
 function congratsHardSound(){
-    congratsHard.volume = 1;
+    congratsHard.volume = 1 * volumeIndex;
     congratsHard.play();    
 }
 
-function update() {}
+function update() {
+
+    // if (!game.input.activePointer.isDown) {
+    //     stopLevelDown();
+    // }
+
+}
 
 
 //////////////////////////////////
@@ -221,11 +229,12 @@ function querySuccess(tx, results) {
         var db = window.openDatabase("olyclick", "1.0", "Olyclick db", 1000);
         db.transaction(popul1DB);
         function popul1DB(tx){
-            tx.executeSql('INSERT INTO olyclick (id, levelEasy, levelHard, isEasyDone) VALUES (1, 0, 0, 0);');
+            tx.executeSql('INSERT INTO olyclick (id, levelEasy, levelHard, isEasyDone, volumeIndex) VALUES (1, 0, 0, 0, 0.3);');
         }
         levEasy = 0;
         levHard = 0;
         isEasyDone = 0;
+        volumeIndex = 0.3;
 
         maxLevelEasy = levEasy;
         levelEasy = maxLevelEasy;
@@ -236,6 +245,9 @@ function querySuccess(tx, results) {
         levEasy = results.rows.item(0).levelEasy;
         levHard = results.rows.item(0).levelHard;
         isEasyDone = results.rows.item(0).isEasyDone;
+        volumeIndex = results.rows.item(0).volumeIndex;
+/// to delete
+volumeIndex = 0.3;
 
         maxLevelEasy = levEasy;
         maxLevelHard = levHard;
@@ -270,6 +282,16 @@ function writeEasyDoneDB(tx){
     tx.executeSql('UPDATE olyclick SET isEasyDone = ' + isEasyDone + ' WHERE id = 1;');
 }
 
+// Write volumeIndex to DB for future logins 
+function saveVolumeIndex(){
+    var db = window.openDatabase("olyclick", "1.0", "Olyclick db", 1000);
+    db.transaction(writeVolumeIndexDB, errorCB);
+}
+function writeVolumeIndexDB(tx){
+    tx.executeSql('UPDATE olyclick SET volumeIndex = ' + volumeIndex + ' WHERE id = 1;');
+}
+
+
 ////////////////////////////////////////////////////
 //////// Functions
 ////////////////////////////////////////////////////
@@ -293,6 +315,7 @@ function playEasy(){
     level = levelEasy;
     maxLevel = maxLevelEasy;
     levelPreview = 'levelsEasy';
+    saveVolumeIndex();
     playGame();
 }
 function playHard(){
@@ -302,7 +325,20 @@ function playHard(){
     level = levelHard;
     maxLevel = maxLevelHard;
     levelPreview = 'levelsHard';
+    saveVolumeIndex();
     playGame();
+}
+
+function changeVolume() {
+    if (volumeIndex == 0) {
+        volumeIndex = 1;
+    } else if (volumeIndex == 0.3) {
+        volumeIndex = 0;
+    } else {
+        volumeIndex = 0.3;
+    }
+    goFwdSound();
+    soundButton.frame++;
 }
 
 function playGame(){
@@ -312,6 +348,8 @@ function playGame(){
     if(typeof easyButton !== 'undefined') easyButton.kill();
     if(typeof hardButton !== 'undefined') hardButton.kill();
     if(typeof exitButton !== 'undefined') exitButton.kill();
+    if(typeof soundButton !== 'undefined') soundButton.kill();
+    
     if(typeof olylogo !== 'undefined') olylogo.kill();
     
     if(typeof backTwoButton !== 'undefined') backTwoButton.kill();
@@ -329,6 +367,8 @@ function playGame(){
     nextButton = game.add.button(game.world.width*0.75, game.world.height-200, 'nextBtn', nextGame, this, 0, 0, 1, 2);
     nextButton.anchor.set(0.5);
 
+
+
     // Text
     textChoose = game.add.bitmapText(game.world.width*0.5, game.world.height*0.1, 'bomicsans', 'Choose a Level', 35);
     textChoose.anchor.setTo(0.5);
@@ -343,6 +383,21 @@ function playGame(){
     backOneButton.anchor.set(0.5);
 
 }
+
+// Start setting level down. Timer waits for 200ms if holding it and then counting levels down
+function levelDown(){
+    game.time.events.add(200, loopLevelDown, this);
+}
+
+// 200ms to wait for timer to start, then looping level down every 100ms
+function loopLevelDown(){
+    timerEvent = game.time.events.loop(100, prevGame, this);
+}
+// Brake level down loop when releasing the button
+function stopLevelDown(){
+    game.time.events.remove(timerEvent);
+}
+
 function prevGame(){
     setLevelSound(); // play set level sound
     level--;
@@ -606,6 +661,7 @@ function backOne(){
     hardButton.revive();
     unlockHardBtn();
     exitButton.revive();
+    soundButton.revive();
 }
 // function for saving current level in case we go back to main manu
 function saveCurrentLevel() {
@@ -667,6 +723,7 @@ function nextLevel(){
 
 function exitGame(){
     goBackSound();
+    saveVolumeIndex();
     navigator.app.exitApp();
 }
  
