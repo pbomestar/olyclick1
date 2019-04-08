@@ -249,7 +249,7 @@ function querySuccess(tx, results) {
 volumeIndex = 0.3;
 
 //hardcode
-levEasy = 1;
+levEasy = 99;
 levHard = 99;
 isEasyDone = 1;
 
@@ -378,7 +378,7 @@ function playGame(){
     textChoose = game.add.bitmapText(game.world.width*0.5, game.world.height*0.1, 'bomicsans', 'Choose a Level', 35);
     textChoose.anchor.setTo(0.5);
 
-    textLevel = game.add.bitmapText(game.world.width*0.5, game.world.height-197, 'bomicsans', (level+1) + "/44" , 38);
+    textLevel = game.add.bitmapText(game.world.width*0.5, game.world.height-197, 'bomicsans', (level+1) + "/100" , 38);
     // textLevel.setText(level+1);
     textLevel.anchor.setTo(0.5);
 
@@ -408,14 +408,14 @@ function prevGame(){
     level--;
     if (level < 0) level = 0;
     levelImg.frame = level;
-    textLevel.setText((level+1) + "/44");
+    textLevel.setText((level+1) + "/100");
 }
 function nextGame(){
     setLevelSound(); // play set level sound
     level++;
     if (level > maxLevel) level = maxLevel; 
     levelImg.frame = level;
-    textLevel.setText((level+1) + "/44");
+    textLevel.setText((level+1) + "/100");
 }
 function startGame(){
     goFwdSound(); // play sound
@@ -722,7 +722,7 @@ function nextLevel(){
     showLvl.kill();
     level++; 
     printPieces();
-    if (level < 44) showLevel();
+    if (level < 100) showLevel();
     toggleNextBtn();
 }
 
