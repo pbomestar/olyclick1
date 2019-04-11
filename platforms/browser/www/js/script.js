@@ -4,6 +4,7 @@
 
 
 var game, canvasWidth, easyButton, hardButton, exitButton, soundButton, timerEvent, mode, pieceSprite, level, levelEasy, levelHard, maxLevel, maxLevelEasy, maxLevelHard, isEasyDone, levelPreview, prevButton, nextButton, textChoose, textLevel, textCongrat, startButton, backOneButton, backTwoButton;
+
 // mode - if 0 then Easy mode is chosen, 1 is for Hard mode.
 
 canvasWidth = 550;
@@ -118,8 +119,8 @@ function preload() {
     game.load.spritesheet('hardBtn',        'img/hard12.png', 170, 88);
     game.load.spritesheet('exitBtn',        'img/exit12.png', 150, 80);
     game.load.spritesheet('soundBtn',       'img/soundBtn.png', 70, 70);
-    game.load.spritesheet('levelsEasy',     'img/levelsEasy.png', 300, 300);
-    game.load.spritesheet('levelsHard',     'img/levelsHard.png', 300, 300);
+    game.load.spritesheet('levelsEasy',     'img/levels.png', 300, 300);
+    game.load.spritesheet('levelsHard',     'img/levels.png', 300, 300);
     game.load.spritesheet('prevBtn',        'img/left12.png', 73, 76);
     game.load.spritesheet('nextBtn',        'img/right12.png', 73, 76);
     game.load.spritesheet('startBtn',       'img/start12.png', 150, 80);
@@ -248,10 +249,10 @@ function querySuccess(tx, results) {
 /// to delete
 volumeIndex = 0.3;
 
-//hardcode
-levEasy = 99;
-levHard = 99;
-isEasyDone = 1;
+// //hardcode
+// levEasy = 88;
+// levHard = 0;
+// isEasyDone = 1;
 
         maxLevelEasy = levEasy;
         maxLevelHard = levHard;
