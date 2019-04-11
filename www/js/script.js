@@ -26,7 +26,7 @@ var isAutoshowInterstitial = false;
 /////// When device is ready
 /////////////////////////////////////////////
 document.addEventListener("deviceready", onDeviceReady, false); 
-
+ 
 
 // Device is ready
 function onDeviceReady() {
